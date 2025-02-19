@@ -1,36 +1,34 @@
-# .
+# Serenity's Skeet Scheduler (S3)
 
-This template should help get you started developing with Vue 3 in Vite.
+Yes, I finally have a project to call S3 lol.
 
-## Recommended IDE Setup
+Pretty self-explanatory. It's a skeet (Bluesky tweet) scheduler built by me!
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+S3 is a [Vue](https://vuejs.org/) app that uses [Vue Router](https://router.vuejs.org/).
 
-## Type Support for `.vue` Imports in TS
+## Installation and Usage
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+TBD. Project WIP and not deployed yet.
 
-## Customize configuration
+## Contribution
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+PRs and Issues are welcome. Please create an issue before submitting a PR.
 
-## Project Setup
+### Setup
+
+1. Clone this repo `git clone https://github.com/NekoDrone/s3.git`
+2. Enter the folder `cd s3`
+3. Install dependencies `pnpm install`
+4. Run the dev server `pnpm dev`
 
 ```sh
+git clone https://github.com/NekoDrone/s3.git
+cd s3
 pnpm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
 pnpm dev
 ```
 
-### Type-Check, Compile and Minify for Production
-
-```sh
-pnpm build
-```
+## Development
 
 ### Run Unit Tests with [Vitest](https://vitest.dev/)
 
@@ -43,3 +41,22 @@ pnpm test:unit
 ```sh
 pnpm lint
 ```
+
+### Format with [Prettier](https://prettier.io/)
+```sh
+pnpm format
+```
+
+## Deployment
+
+### Type-Check, Compile and Minify for Production
+
+```sh
+pnpm build
+```
+
+### Deployment Steps
+
+The project is deployed on Vercel. (Might swap to self-hosted Coolify).
+
+Pushing to the repository `main` branch should trigger a deployment run onto Vercel.
