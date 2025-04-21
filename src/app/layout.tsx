@@ -1,14 +1,14 @@
 "use client";
 
 import "./globals.css";
-import { ReactNode } from "react";
+import { FC, ReactNode } from "react";
 import { lexend } from "@/styles/font";
 
-export default function RootLayout({
-    children,
-}: Readonly<{
+export interface LayoutProps {
     children: ReactNode;
-}>) {
+}
+
+const RootLayout: FC<LayoutProps> = ({ children }) => {
     return (
         <html lang="en">
             <head>
@@ -23,4 +23,6 @@ export default function RootLayout({
             </body>
         </html>
     );
-}
+};
+
+export default RootLayout;
