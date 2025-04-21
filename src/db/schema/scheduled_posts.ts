@@ -25,4 +25,6 @@ export const scheduledPosts = sqliteTable(
 
 export const postsSelectSchema = createSelectSchema(scheduledPosts);
 export const postsSelectSchemaArray = z.array(postsSelectSchema);
-export const postsInsertSchema = createInsertSchema(scheduledPosts);
+export const postsInsertSchema = createInsertSchema(scheduledPosts, {
+    postOn: z.coerce.date(),
+});
