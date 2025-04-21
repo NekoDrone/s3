@@ -1,5 +1,7 @@
 import { index, integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 import { sql } from "drizzle-orm";
+import { createInsertSchema, createSelectSchema } from "drizzle-zod";
+import { z } from "zod";
 
 export const scheduledPosts = sqliteTable(
     "scheduled_posts",
@@ -20,3 +22,7 @@ export const scheduledPosts = sqliteTable(
         ];
     },
 );
+
+export const postsSelectSchema = createSelectSchema(scheduledPosts);
+export const postsSelectSchemaArray = z.array(postsSelectSchema);
+export const postsInsertSchema = createInsertSchema(scheduledPosts);
