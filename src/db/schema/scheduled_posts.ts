@@ -28,3 +28,5 @@ export const postsSelectSchemaArray = z.array(postsSelectSchema);
 export const postsInsertSchema = createInsertSchema(scheduledPosts, {
     postOn: z.coerce.date(),
 });
+
+export type ScheduledPost = z.infer<typeof postsInsertSchema>;
