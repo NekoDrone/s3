@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@atproto/api": "^0.15.3",
     "@libsql/client": "^0.15.4",
     "dotenv": "^16.5.0",
     "drizzle-zod": "^0.7.1",
