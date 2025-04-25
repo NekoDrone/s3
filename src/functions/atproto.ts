@@ -1,7 +1,5 @@
 import { AtpAgent } from "@atproto/api";
 
-const agent = new AtpAgent({
+export const agent = new AtpAgent({
     service: "https://bsky.social",
 });
-
-export default agent;
