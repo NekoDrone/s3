@@ -36,6 +36,13 @@
       "when": 1745592755449,
       "tag": "0004_jazzy_black_cat",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "6",
+      "when": 1745594423817,
+      "tag": "0005_bitter_shard",
+      "breakpoints": true
     }
   ]
 }
