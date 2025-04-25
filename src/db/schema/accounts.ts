@@ -10,6 +10,8 @@ export const accounts = sqliteTable(
         identifier: text("account").notNull(),
         appPasswordEncrypted: text("app_password_enc").notNull(),
         appPasswordInitVec: text("app_password_init_vec").notNull(),
+        passwordEncrypted: text("password_enc").notNull(),
+        passwordInitVec: text("password_init_vec").notNull(),
         createdAt: integer("created_at", { mode: "timestamp" })
             .notNull()
             .default(sql`(CURRENT_TIMESTAMP)`),
