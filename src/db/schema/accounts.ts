@@ -7,7 +7,7 @@ export const accounts = sqliteTable(
     "accounts",
     {
         id: integer("id").primaryKey({ autoIncrement: true }),
-        identifier: text("account").notNull(),
+        identifier: text("identifier").notNull(),
         appPasswordEncrypted: text("app_password_enc").notNull(),
         appPasswordInitVec: text("app_password_init_vec").notNull(),
         passwordEncrypted: text("password_enc").notNull(),
