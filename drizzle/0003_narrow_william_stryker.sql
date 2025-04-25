@@ -1,0 +1,1 @@
+ALTER TABLE `scheduled_posts` ALTER COLUMN "account" TO "account" text NOT NULL REFERENCES accounts(account) ON DELETE no action ON UPDATE no action;
