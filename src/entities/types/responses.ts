@@ -4,11 +4,11 @@ import { z } from "zod";
 
 export interface ApiResponse {
     data?: ResponseData;
-    status: StatusTypes;
+    status: StatusType;
     error?: ApiError;
 }
 
-export enum StatusTypes {
+export enum StatusType {
     SUCCESS = "success",
     ERROR = "error",
 }

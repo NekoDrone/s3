@@ -3,9 +3,8 @@ import { postsSelectSchemaArray } from "@/db/schema/scheduled_posts";
 import {
     ApiResponse,
     PostsResponse,
-    StatusTypes,
+    StatusType,
 } from "@/entities/types/responses";
-import { ApiError } from "@/entities/types/errors";
 
 export async function GET() {
     const posts = await db.query.scheduledPosts.findMany();
@@ -14,7 +13,7 @@ export async function GET() {
         const data = validation.data as PostsResponse;
         const response: ApiResponse = {
             data,
-            status: StatusTypes.SUCCESS,
+            status: StatusType.SUCCESS,
         };
         return new Response(JSON.stringify(response), {
             status: 200,
@@ -25,7 +24,7 @@ export async function GET() {
         });
     } else {
         const response: ApiResponse = {
-            status: StatusTypes.ERROR,
+            status: StatusType.ERROR,
             error: {
                 message:
                     "Something went wrong on our side. Please try again later.",

@@ -3,7 +3,7 @@ import { agent } from "@/functions/atproto";
 import {
     ApiResponse,
     BskyPostResponse,
-    StatusTypes,
+    StatusType,
 } from "@/entities/types/responses";
 
 export async function POST(req: Request) {
@@ -21,7 +21,7 @@ export async function POST(req: Request) {
         });
         const response: ApiResponse = {
             data: postAttemptResponseData,
-            status: StatusTypes.SUCCESS,
+            status: StatusType.SUCCESS,
         };
         return new Response(JSON.stringify(response), {
             status: 200,
@@ -32,7 +32,7 @@ export async function POST(req: Request) {
         });
     } else {
         const response: ApiResponse = {
-            status: StatusTypes.ERROR,
+            status: StatusType.ERROR,
             error: {
                 message:
                     "Invalid data. Please ensure that you provide the correct type.",

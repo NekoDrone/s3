@@ -1,7 +1,6 @@
 import db from "@/db";
 import { postsInsertSchema, scheduledPosts } from "@/db/schema/scheduled_posts";
-import { ApiResponse, StatusTypes } from "@/entities/types/responses";
-import { ApiError } from "@/entities/types/errors";
+import { ApiResponse, StatusType } from "@/entities/types/responses";
 
 export async function POST(request: Request) {
     const body = await request.json();
@@ -9,7 +8,7 @@ export async function POST(request: Request) {
     if (validation.success) {
         await db.insert(scheduledPosts).values(validation.data);
         const response: ApiResponse = {
-            status: StatusTypes.SUCCESS,
+            status: StatusType.SUCCESS,
         };
         return new Response(JSON.stringify(response), {
             status: 200,
@@ -20,7 +19,7 @@ export async function POST(request: Request) {
         });
     } else {
         const response: ApiResponse = {
-            status: StatusTypes.ERROR,
+            status: StatusType.ERROR,
             error: {
                 message:
                     "Invalid data. Please ensure that you provide the correct type.",
