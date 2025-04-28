@@ -1,21 +1,28 @@
+import { ApiError } from "@/entities/types/errors";
+import { postsSelectSchemaArray } from "@/db/schema/scheduled_posts";
+import { z } from "zod";
+
 export interface ApiResponse {
-    data: InnerResponse;
+    data?: ResponseData;
     status: StatusTypes;
-    error?: Error;
+    error?: ApiError;
 }
 
 export enum StatusTypes {
-    SUCCESS = 'success',
-    ERROR = 'error',
+    SUCCESS = "success",
+    ERROR = "error",
 }
 
-type InnerResponse = LoginResponse | PostsResponse
+type ResponseData = LoginResponse | PostsResponse | BskyPostResponse;
 
 export interface LoginResponse {
-    appPasswordEncrypted: string,
-    appPasswordInitVec: string,
+    appPasswordEncrypted: string;
+    appPasswordInitVec: string;
 }
 
-export interface PostsResponse {
-    
+export type PostsResponse = z.infer<typeof postsSelectSchemaArray>;
+
+export interface BskyPostResponse {
+    uri: string;
+    cid: string;
 }

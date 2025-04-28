@@ -1,5 +1,10 @@
 import { z } from "zod";
 import { agent } from "@/functions/atproto";
+import {
+    ApiResponse,
+    BskyPostResponse,
+    StatusTypes,
+} from "@/entities/types/responses";
 
 export async function POST(req: Request) {
     const body = await req.json();
@@ -10,11 +15,15 @@ export async function POST(req: Request) {
             identifier: reqData.identifier,
             password: reqData.appPassword,
         });
-        const res = await agent.post({
+        const postAttemptResponseData: BskyPostResponse = await agent.post({
             text: reqData.textContent,
             createdAt: new Date().toISOString(),
         });
-        return new Response(`New post URI: ${res.uri}`, {
+        const response: ApiResponse = {
+            data: postAttemptResponseData,
+            status: StatusTypes.SUCCESS,
+        };
+        return new Response(JSON.stringify(response), {
             status: 200,
             statusText: "OK",
             headers: {
@@ -22,16 +31,22 @@ export async function POST(req: Request) {
             },
         });
     } else {
-        return new Response(
-            `Invalid data. Please ensure that you provide the correct type. Details: ${validation.error}`,
-            {
-                status: 400,
-                statusText: "Bad Request",
-                headers: {
-                    "Content-Type": "text/plain",
-                },
+        const response: ApiResponse = {
+            status: StatusTypes.ERROR,
+            error: {
+                message:
+                    "Invalid data. Please ensure that you provide the correct type.",
+                details: validation.error,
             },
-        );
+        };
+
+        return new Response(JSON.stringify(response), {
+            status: 400,
+            statusText: "Bad Request",
+            headers: {
+                "Content-Type": "text/plain",
+            },
+        });
     }
 }
 
