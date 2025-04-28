@@ -3,7 +3,7 @@ import { Footer } from "@/components/HomePage/Footer";
 
 export default function Home() {
     return (
-        <div className="flex min-h-screen flex-col items-center justify-center bg-ctp-mantle gap-8">
+        <div className="flex min-h-screen flex-col items-center justify-center bg-ctp-base gap-8">
             <div className="flex flex-col items-center">
                 <p className="text-2xl font-medium">
                     Serenity&#39;s Skeet Scheduler
