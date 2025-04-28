@@ -6,7 +6,26 @@ export async function POST(request: Request) {
     const body = await request.json();
     const validation = postsInsertSchema.safeParse(body);
     if (validation.success) {
-        await db.insert(scheduledPosts).values(validation.data);
+        try {
+            await db.insert(scheduledPosts).values(validation.data);
+        } catch (err) {
+            const response: ApiResponse = {
+                status: StatusType.ERROR,
+                error: {
+                    message:
+                        "Invalid DB transaction. Constraint mismatch? Usually means a foreign key doesn't exist. Check the inputs.",
+                    details: err,
+                },
+            };
+            return new Response(JSON.stringify(response), {
+                status: 400,
+                statusText: "Bad Request",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+        }
+
         const response: ApiResponse = {
             status: StatusType.SUCCESS,
         };
