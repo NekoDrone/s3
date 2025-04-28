@@ -11,6 +11,8 @@
   "dependencies": {
     "@atproto/api": "^0.15.3",
     "@libsql/client": "^0.15.4",
+    "@types/bcrypt": "^5.0.2",
+    "bcrypt": "^5.1.1",
     "dotenv": "^16.5.0",
     "drizzle-zod": "^0.7.1",
     "next": "15.3.1",
