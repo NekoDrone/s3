@@ -25,7 +25,7 @@ export const Footer = () => {
             <p className="text-sm font-light">by </p>
             <a
                 className="text-sm font-light text-ctp-lavender underline"
-                href="https://bsky.app/profile/serenity.tgirl.gay"
+                href="https://serenity.tgirl.gay"
             >
                 Serenity
             </a>
