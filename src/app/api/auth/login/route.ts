@@ -2,12 +2,13 @@ import { z } from "zod";
 import db from "@/db";
 import { and, eq } from "drizzle-orm";
 import { accounts } from "@/db/schema/accounts";
+import { LoginResponse } from '@/entities/types/responses'
 
 export async function POST(req: Request) {
     const body = await req.json();
     const validation = loginOptsSchema.safeParse(body);
     if (validation.success) {
-        const appPassword = await db.query.accounts.findFirst({
+        const appPassword: LoginResponse | undefined = await db.query.accounts.findFirst({
             where: and(
                 eq(accounts.identifier, validation.data.identifier),
                 eq(accounts.passwordHash, validation.data.passwordHash),

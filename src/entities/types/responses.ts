@@ -1,6 +1,7 @@
 export interface ApiResponse {
     data: InnerResponse;
     status: StatusTypes;
+    error?: Error;
 }
 
 export enum StatusTypes {
