@@ -31,7 +31,7 @@ export async function POST(request: Request) {
             status: 400,
             statusText: "Bad Request",
             headers: {
-                "Content-Type": "text/plain",
+                "Content-Type": "application/json",
             },
         });
     }
