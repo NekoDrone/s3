@@ -43,6 +43,27 @@
       "when": 1745594423817,
       "tag": "0005_bitter_shard",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "6",
+      "when": 1745824300685,
+      "tag": "0006_spicy_leper_queen",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "6",
+      "when": 1745824322781,
+      "tag": "0007_amazing_lady_deathstrike",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "6",
+      "when": 1745824650119,
+      "tag": "0008_early_iron_patriot",
+      "breakpoints": true
     }
   ]
 }

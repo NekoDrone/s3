@@ -1,18 +1,13 @@
+import { accounts, accountsInsertSchema } from "@/db/schema/accounts";
 import db from "@/db";
-import { postsSelectSchemaArray } from "@/db/schema/scheduled_posts";
-import {
-    ApiResponse,
-    PostsResponse,
-    StatusType,
-} from "@/entities/types/responses";
+import { ApiResponse, StatusType } from "@/entities/types/responses";
 
-export async function GET() {
-    const posts = await db.query.scheduledPosts.findMany();
-    const validation = postsSelectSchemaArray.safeParse(posts);
+export async function POST(req: Request) {
+    const body = await req.json();
+    const validation = accountsInsertSchema.safeParse(body);
     if (validation.success) {
-        const data = validation.data as PostsResponse;
+        await db.insert(accounts).values(validation.data);
         const response: ApiResponse = {
-            data,
             status: StatusType.SUCCESS,
         };
         return new Response(JSON.stringify(response), {
@@ -27,13 +22,13 @@ export async function GET() {
             status: StatusType.ERROR,
             error: {
                 message:
-                    "Something went wrong on our side. Please try again later.",
+                    "Invalid data. Please ensure that you provide the correct type.",
                 details: validation.error,
             },
         };
         return new Response(JSON.stringify(response), {
-            status: 500,
-            statusText: "Internal Server Error",
+            status: 400,
+            statusText: "Bad Request",
             headers: {
                 "Content-Type": "application/json",
             },

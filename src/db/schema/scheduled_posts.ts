@@ -9,14 +9,14 @@ export const scheduledPosts = sqliteTable(
     {
         id: integer("id").primaryKey({ autoIncrement: true }),
         postContent: text("post_content").notNull(),
-        account: text("account")
+        account: integer("account")
             .notNull()
-            .references(() => accounts.identifier),
+            .references(() => accounts.id),
         postOn: integer("post_on", { mode: "timestamp" }).notNull(),
         status: text("status").notNull().default("pending"),
         createdAt: integer("created_at", { mode: "timestamp" })
             .notNull()
-            .default(sql`(CURRENT_TIMESTAMP)`),
+            .default(sql`(unixepoch('now'))`),
     },
     (table) => {
         return [
