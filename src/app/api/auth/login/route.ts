@@ -11,43 +11,7 @@ import {
 export async function POST(req: Request) {
     const body = await req.json();
     const validation = loginOptsSchema.safeParse(body);
-    if (validation.success) {
-        const data: LoginResponse | undefined =
-            await db.query.accounts.findFirst({
-                where: and(
-                    eq(accounts.identifier, validation.data.identifier),
-                    eq(accounts.passwordHash, validation.data.passwordHash),
-                ),
-            });
-        if (data) {
-            const response: ApiResponse = {
-                status: StatusType.SUCCESS,
-                data,
-            };
-            return new Response(JSON.stringify(response), {
-                status: 401,
-                statusText: "Unauthorized",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            });
-        } else {
-            const response: ApiResponse = {
-                status: StatusType.ERROR,
-                error: {
-                    message:
-                        "Could not find provided username and password hash in database.",
-                },
-            };
-            return new Response(JSON.stringify(response), {
-                status: 401,
-                statusText: "Unauthorized",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            });
-        }
-    } else {
+    if (!validation.success) {
         const response: ApiResponse = {
             status: StatusType.ERROR,
             error: {
@@ -64,6 +28,85 @@ export async function POST(req: Request) {
             },
         });
     }
+    const user = (
+        await db
+            .select({
+                identifier: accounts.identifier,
+                passwordHash: accounts.passwordHash,
+            })
+            .from(accounts)
+            .where(eq(accounts.identifier, validation.data.identifier))
+            .limit(1)
+    )[0];
+
+    if (!user) {
+        const response: ApiResponse = {
+            status: StatusType.ERROR,
+            error: {
+                message:
+                    "Could not find provided username and password hash in database.",
+            },
+        };
+        return new Response(JSON.stringify(response), {
+            status: 401,
+            statusText: "Unauthorized",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+    }
+
+    const storedPassword = user.passwordHash;
+    const inputPassword = validation.data.passwordHash;
+    const isCorrectPassword = storedPassword == inputPassword;
+    if (!isCorrectPassword) {
+        const response: ApiResponse = {
+            status: StatusType.ERROR,
+            error: {
+                message: "User exists. Incorrect password.",
+            },
+        };
+        return new Response(JSON.stringify(response), {
+            status: 401,
+            statusText: "Unauthorized",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+    }
+
+    const data: LoginResponse | undefined = await db.query.accounts.findFirst({
+        where: eq(accounts.identifier, validation.data.identifier),
+    });
+    if (!data) {
+        const response: ApiResponse = {
+            status: StatusType.ERROR,
+            error: {
+                message:
+                    "Can login, but cannot find account? This shouldn't happen.",
+            },
+        };
+        return new Response(JSON.stringify(response), {
+            status: 500,
+            statusText: "Internal Server Error",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+    }
+
+    const response: ApiResponse = {
+        status: StatusType.SUCCESS,
+        data,
+    };
+
+    return new Response(JSON.stringify(response), {
+        status: 200,
+        statusText: "OK",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
 }
 
 export const loginOptsSchema = z.object({
