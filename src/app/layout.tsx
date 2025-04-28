@@ -3,12 +3,16 @@
 import "./globals.css";
 import { FC, ReactNode } from "react";
 import { lexend } from "@/styles/font";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 export interface LayoutProps {
     children: ReactNode;
 }
 
 const RootLayout: FC<LayoutProps> = ({ children }) => {
+    const reactQuery = new QueryClient();
+
     return (
         <html lang="en">
             <head>
@@ -19,7 +23,10 @@ const RootLayout: FC<LayoutProps> = ({ children }) => {
             <body
                 className={`${lexend.className} antialiased bg-ctp-crust text-ctp-text`}
             >
-                {children}
+                <QueryClientProvider client={reactQuery}>
+                    {children}
+                    <ReactQueryDevtools initialIsOpen={false} />
+                </QueryClientProvider>
             </body>
         </html>
     );
