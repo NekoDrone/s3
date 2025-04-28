@@ -1,5 +1,6 @@
 import { Login } from "@/components/Auth/Login";
 import { Footer } from "@/components/HomePage/Footer";
+import { Register } from "@/components/Auth/Register";
 
 export default function Home() {
     return (
@@ -14,7 +15,8 @@ export default function Home() {
             </div>
             <div className="outline-ctp-mauve outline-1 p-8 rounded-2xl flex flex-col justify-center items-center gap-4">
                 <Login />
-                <p>Don&#39;t have an account?</p>
+                <Register />
+                <p>Already have an account?</p>
             </div>
             <Footer />
         </div>

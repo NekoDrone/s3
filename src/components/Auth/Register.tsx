@@ -1,3 +1,153 @@
+"use client";
+
+import { LucideAtSign } from "@/components/Icons/LucideAtSign";
+import { LucideKeyRound } from "@/components/Icons/LucideKeyRound";
+import { LucideCircleHelp } from "@/components/Icons/LucideCircleHelp";
+import { LucideArrowRight } from "@/components/Icons/LucideArrowRight";
+import { LucideEye } from "@/components/Icons/LucideEye";
+import { useState } from "react";
+import { LucideEyeOff } from "@/components/Icons/LucideEyeOff";
+import { LucideInfo } from "@/components/Icons/LucideInfo";
+import { AnimatePresence, motion } from "motion/react";
+
 export const Register = () => {
-    return <p className=""></p>;
+    const [isAppPasswordVisible, setIsAppPasswordVisible] = useState(false);
+    const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+    const [isPasswordTooltipVisible, setIsPasswordTooltipVisible] =
+        useState(false);
+
+    const handleAppPasswordVisibleToggle = () => {
+        setIsAppPasswordVisible(!isAppPasswordVisible);
+    };
+
+    const handlePasswordVisibleToggle = () => {
+        setIsPasswordVisible(!isPasswordVisible);
+    };
+
+    const handlePasswordTooltipToggle = () => {
+        setIsPasswordTooltipVisible(!isPasswordTooltipVisible);
+    };
+
+    const handleLoginRegister = (formData: FormData) => {
+        const username = formData.get("username");
+        const appPassword = formData.get("appPassword");
+        const password = formData.get("password");
+    };
+
+    return (
+        <form className="flex flex-col gap-2" action={handleLoginRegister}>
+            <div className="font-light text-sm flex flex-col align-middle h-fit gap-0.5">
+                <p className="">Handle</p>
+                <div className="rounded-2xl bg-ctp-crust pl-3 pr-4 p-2 flex items-center gap-2">
+                    <LucideAtSign className="text-ctp-blue" />
+                    <input
+                        type="text"
+                        id="login-username"
+                        name="username"
+                        required
+                        placeholder="username.bsky.social"
+                        className="focus:outline-0"
+                    />
+                </div>
+            </div>
+            <div className="font-light text-sm flex flex-col align-middle h-fit gap-0.5">
+                <p className="">App Password</p>
+                <div className="rounded-2xl bg-ctp-crust pl-3 pr-4 p-2 flex items-center gap-2">
+                    <LucideKeyRound className="text-ctp-green" />
+                    <input
+                        type={isAppPasswordVisible ? "text" : "password"}
+                        id="login-app-password"
+                        name="appPassword"
+                        placeholder="a1b2-c3d4-e5f6-g7h8"
+                        className="focus:outline-0"
+                    />
+                    <motion.div
+                        onClick={handleAppPasswordVisibleToggle}
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ y: 2 }}
+                    >
+                        {isAppPasswordVisible ? (
+                            <LucideEyeOff className="w-4 h-4" />
+                        ) : (
+                            <LucideEye className="w-4 h-4" />
+                        )}
+                    </motion.div>
+                    <motion.a
+                        href="https://bsky.app/settings/app-passwords"
+                        whileHover={{ scale: 1.05 }}
+                    >
+                        <LucideCircleHelp className="text-ctp-mauve w-4 h-4" />
+                    </motion.a>
+                </div>
+            </div>
+            <div className="font-light text-sm flex flex-col align-middle h-fit gap-0.5">
+                <p className="">Password (optional)</p>
+                <div className="rounded-2xl bg-ctp-crust pl-3 pr-4 p-2 flex items-center gap-2">
+                    <LucideKeyRound className="text-ctp-pink" />
+                    <input
+                        type={isPasswordVisible ? "text" : "password"}
+                        id="login-password"
+                        name="password"
+                        placeholder="Optional password"
+                        className="focus:outline-0"
+                    />
+                    <motion.div
+                        onClick={handlePasswordVisibleToggle}
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ y: 2 }}
+                    >
+                        {isPasswordVisible ? (
+                            <LucideEyeOff className="w-4 h-4" />
+                        ) : (
+                            <LucideEye className="w-4 h-4" />
+                        )}
+                    </motion.div>
+                    <div className="relative">
+                        <motion.button
+                            onClick={handlePasswordTooltipToggle}
+                            className="flex items-center"
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ y: 1 }}
+                        >
+                            <LucideCircleHelp className="text-ctp-mauve w-4 h-4 cursor-help" />
+                        </motion.button>
+                        <AnimatePresence initial={false}>
+                            {isPasswordTooltipVisible && (
+                                <motion.div
+                                    initial={{ opacity: 0, scale: 0 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    exit={{ opacity: 0, scale: 0 }}
+                                    className="absolute -top-2 left-6 bg-ctp-mantle outline-ctp-mauve outline-1 rounded-2xl h-fit w-96 p-4 flex flex-col gap-2"
+                                >
+                                    <LucideInfo />
+                                    <p>
+                                        You may <em>optionally</em> set a
+                                        password to access this app again, since
+                                        you cannot see an App Password provided
+                                        by Bluesky after you&#39;ve closed the
+                                        initial creation dialog.
+                                    </p>
+                                    <p>
+                                        If you&#39;ve logged in before, either
+                                        an App Password or the password
+                                        you&#39;ve set will do :)
+                                    </p>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
+                    </div>
+                </div>
+            </div>
+
+            <motion.button
+                className="text-sm rounded-2xl h-8 bg-gradient-to-br from-ctp-pink via-ctp-lavender to-ctp-mauve text-ctp-crust flex items-center justify-center gap-2 hover:underline group"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.8 }}
+                type="submit"
+            >
+                <p>Sign in</p>
+                <LucideArrowRight />
+            </motion.button>
+        </form>
+    );
 };
