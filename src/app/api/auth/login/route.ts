@@ -18,10 +18,6 @@ export async function POST(req: Request) {
                     eq(accounts.identifier, validation.data.identifier),
                     eq(accounts.passwordHash, validation.data.passwordHash),
                 ),
-                columns: {
-                    appPasswordEncrypted: true,
-                    appPasswordInitVec: true,
-                },
             });
         if (data) {
             const response: ApiResponse = {
