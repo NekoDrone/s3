@@ -16,7 +16,7 @@ export const scheduledPosts = sqliteTable(
         status: text("status").notNull().default("pending"),
         createdAt: integer("created_at", { mode: "timestamp" })
             .notNull()
-            .default(sql`(CURRENT_TIMESTAMP)`),
+            .default(sql`(unixepoch('now'))`),
     },
     (table) => {
         return [

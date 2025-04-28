@@ -13,7 +13,7 @@ export const accounts = sqliteTable(
         passwordHash: text("password_hash").notNull(),
         createdAt: integer("created_at", { mode: "timestamp" })
             .notNull()
-            .default(sql`(CURRENT_TIMESTAMP)`),
+            .default(sql`(unixepoch('now'))`),
     },
     (table) => {
         return [index("idx_accounts_identifier").on(table.identifier)];
