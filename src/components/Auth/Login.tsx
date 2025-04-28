@@ -28,8 +28,14 @@ export const Login = () => {
         setIsPasswordTooltipVisible(!isPasswordTooltipVisible);
     };
 
+    const handleLoginRegister = (formData: FormData) => {
+        const username = formData.get("username");
+        const appPassword = formData.get("appPassword");
+        const password = formData.get("password");
+    };
+
     return (
-        <form className="flex flex-col gap-2">
+        <form className="flex flex-col gap-2" action={handleLoginRegister}>
             <div className="font-light text-sm flex flex-col align-middle h-fit gap-0.5">
                 <p className="">Handle</p>
                 <div className="rounded-2xl bg-ctp-crust pl-3 pr-4 p-2 flex items-center gap-2">
@@ -37,6 +43,7 @@ export const Login = () => {
                     <input
                         type="text"
                         id="login-username"
+                        name="username"
                         required
                         placeholder="username.bsky.social"
                         className="focus:outline-0"
@@ -50,7 +57,7 @@ export const Login = () => {
                     <input
                         type={isAppPasswordVisible ? "text" : "password"}
                         id="login-app-password"
-                        required
+                        name="appPassword"
                         placeholder="a1b2-c3d4-e5f6-g7h8"
                         className="focus:outline-0"
                     />
@@ -79,8 +86,8 @@ export const Login = () => {
                     <LucideKeyRound className="text-ctp-pink" />
                     <input
                         type={isPasswordVisible ? "text" : "password"}
-                        id="login-app-password"
-                        required
+                        id="login-password"
+                        name="password"
                         placeholder="Optional password"
                         className="focus:outline-0"
                     />
@@ -121,9 +128,9 @@ export const Login = () => {
                                         initial creation dialog.
                                     </p>
                                     <p>
-                                        If you've logged in before, either an
-                                        App Password or the password you've set
-                                        will do :)
+                                        If you&#39;ve logged in before, either
+                                        an App Password or the password
+                                        you&#39;ve set will do :)
                                     </p>
                                 </motion.div>
                             )}
@@ -136,6 +143,7 @@ export const Login = () => {
                 className="text-sm rounded-2xl h-8 bg-gradient-to-br from-ctp-pink via-ctp-lavender to-ctp-mauve text-ctp-crust flex items-center justify-center gap-2 hover:underline group"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.8 }}
+                type="submit"
             >
                 <p>Sign in</p>
                 <LucideArrowRight />
