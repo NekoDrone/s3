@@ -21,7 +21,7 @@ const RootLayout: FC<LayoutProps> = ({ children }) => {
                 <title>Serenity&apos;s Skeet Scheduler</title>
             </head>
             <body
-                className={`${lexend.className} antialiased bg-ctp-crust text-ctp-text`}
+                className={`${lexend.className} antialiased bg-ctp-crust text-ctp-text font-light`}
             >
                 <QueryClientProvider client={reactQuery}>
                     {children}
