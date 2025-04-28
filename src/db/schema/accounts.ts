@@ -10,7 +10,7 @@ export const accounts = sqliteTable(
         identifier: text("identifier").notNull(),
         appPasswordEncrypted: text("app_password_enc").notNull(),
         appPasswordInitVec: text("app_password_init_vec").notNull(),
-        passwordHash: text("password_hash").notNull(),
+        passwordHash: text("password_hash"),
         createdAt: integer("created_at", { mode: "timestamp" })
             .notNull()
             .default(sql`(unixepoch('now'))`),
