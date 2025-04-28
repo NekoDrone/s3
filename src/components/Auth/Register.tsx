@@ -28,14 +28,14 @@ export const Register = () => {
         setIsPasswordTooltipVisible(!isPasswordTooltipVisible);
     };
 
-    const handleLoginRegister = (formData: FormData) => {
+    const handleRegister = (formData: FormData) => {
         const username = formData.get("username");
         const appPassword = formData.get("appPassword");
         const password = formData.get("password");
     };
 
     return (
-        <form className="flex flex-col gap-2" action={handleLoginRegister}>
+        <form className="flex flex-col gap-2" action={handleRegister}>
             <div className="font-light text-sm flex flex-col align-middle h-fit gap-0.5">
                 <p className="">Handle</p>
                 <div className="rounded-2xl bg-ctp-crust pl-3 pr-4 p-2 flex items-center gap-2">
@@ -76,7 +76,7 @@ export const Register = () => {
                         href="https://bsky.app/settings/app-passwords"
                         whileHover={{ scale: 1.05 }}
                     >
-                        <LucideCircleHelp className="text-ctp-mauve w-4 h-4" />
+                        <LucideCircleHelp className="text-ctp-green w-4 h-4" />
                     </motion.a>
                 </div>
             </div>
@@ -109,7 +109,7 @@ export const Register = () => {
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ y: 1 }}
                         >
-                            <LucideCircleHelp className="text-ctp-mauve w-4 h-4 cursor-help" />
+                            <LucideCircleHelp className="text-ctp-green w-4 h-4 cursor-help" />
                         </motion.button>
                         <AnimatePresence initial={false}>
                             {isPasswordTooltipVisible && (
@@ -117,7 +117,7 @@ export const Register = () => {
                                     initial={{ opacity: 0, scale: 0 }}
                                     animate={{ opacity: 1, scale: 1 }}
                                     exit={{ opacity: 0, scale: 0 }}
-                                    className="absolute -top-2 left-6 bg-ctp-mantle outline-ctp-mauve outline-1 rounded-2xl h-fit w-96 p-4 flex flex-col gap-2"
+                                    className="absolute -top-2 left-6 bg-ctp-mantle outline-ctp-green outline-1 rounded-2xl h-fit w-96 p-4 flex flex-col gap-2"
                                 >
                                     <LucideInfo />
                                     <p>
@@ -140,12 +140,12 @@ export const Register = () => {
             </div>
 
             <motion.button
-                className="text-sm rounded-2xl h-8 bg-gradient-to-br from-ctp-pink via-ctp-lavender to-ctp-mauve text-ctp-crust flex items-center justify-center gap-2 hover:underline group"
+                className="text-sm rounded-2xl h-8 bg-gradient-to-tl from-ctp-green via-ctp-sky to-ctp-blue text-ctp-crust flex items-center justify-center gap-2 hover:underline group"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.8 }}
                 type="submit"
             >
-                <p>Sign in</p>
+                <p>Register</p>
                 <LucideArrowRight />
             </motion.button>
         </form>
