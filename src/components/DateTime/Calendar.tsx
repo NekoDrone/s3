@@ -20,7 +20,7 @@ export const Calendar: FC<CalendarProps> = ({ selected, setSelected }) => {
     };
 
     return (
-        <div className="bg-ctp-base outline-ctp-mauve flex flex-col gap-2 rounded-2xl p-4 pb-6 outline-2">
+        <div className="bg-ctp-base outline-ctp-mauve flex flex-col gap-2 rounded-2xl p-4 outline-2">
             <div className="flex items-center gap-2">
                 <p>Post on:</p>
                 <span className="bg-ctp-crust flex rounded p-1 pr-1.5 pl-1.5">
@@ -54,6 +54,7 @@ export const Calendar: FC<CalendarProps> = ({ selected, setSelected }) => {
                             duration: 0.2,
                             ease: "easeIn",
                         }}
+                        className="pb-2"
                     >
                         <DayPicker
                             mode="single"
