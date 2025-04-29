@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { Dispatch, FC, useState } from "react";
 import { useHotkeys } from "react-hotkeys-hook";
 import { Calendar } from "@/components/DateTime/Calendar";
+import { TimePicker } from "@/components/DateTime/TimePicker";
 
 export const SchedulePost = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -45,7 +46,8 @@ interface ModalProps {
 }
 
 const SchedulePostModal: FC<ModalProps> = ({ setIsModalOpen }) => {
-    const [selectedDate, setSelectedDate] = useState<Date | undefined>();
+    const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+    const [selectedTime, setSelectedTime] = useState("00:00");
 
     const handleBackdropClose = () => {
         setIsModalOpen(false);
@@ -66,7 +68,7 @@ const SchedulePostModal: FC<ModalProps> = ({ setIsModalOpen }) => {
                 transition={{ type: "tween", duration: 0.3, ease: "easeInOut" }}
             />
             <motion.div
-                className="z-10"
+                className="z-10 flex flex-col gap-1"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
@@ -75,6 +77,10 @@ const SchedulePostModal: FC<ModalProps> = ({ setIsModalOpen }) => {
                 <Calendar
                     selected={selectedDate}
                     setSelected={setSelectedDate}
+                />
+                <TimePicker
+                    selected={selectedTime}
+                    setSelected={setSelectedTime}
                 />
             </motion.div>
         </div>
