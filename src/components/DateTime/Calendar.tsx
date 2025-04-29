@@ -7,7 +7,6 @@ import { LucideChevronRight } from "@/components/Icons/LucideChevronRight";
 import { Dispatch, FC, SetStateAction, useState } from "react";
 import { LucideCalendar } from "@/components/Icons/LucideCalendar";
 import { AnimatePresence, motion } from "motion/react";
-import { getDateWithZero, getMonthWithZero } from "@/functions/utilities/dates";
 
 export interface CalendarProps {
     selected: Date;
@@ -26,11 +25,14 @@ export const Calendar: FC<CalendarProps> = ({ selected, setSelected }) => {
                 <p>Post on:</p>
                 <span className="bg-ctp-crust flex rounded p-1 pr-1.5 pl-1.5">
                     <p className="w-5 text-center">
-                        {selected && getDateWithZero(selected)}
+                        {selected?.getDate().toString().padStart(2, "0")}
                     </p>
                     /
                     <p className="w-5 text-center">
-                        {selected && getMonthWithZero(selected)}
+                        {selected &&
+                            (selected.getMonth() + 1)
+                                .toString()
+                                .padStart(2, "0")}
                     </p>
                     /
                     <p className="w-9 text-center">{selected?.getFullYear()}</p>
