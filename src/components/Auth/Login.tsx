@@ -10,14 +10,46 @@ import { LucideEyeOff } from "@/components/Icons/LucideEyeOff";
 import { LucideInfo } from "@/components/Icons/LucideInfo";
 import { AnimatePresence, motion } from "motion/react";
 import { LucideArrowRightLeft } from "@/components/Icons/LucideArrowRightLeft";
+import { useLocalStorage } from "@/hooks/useLocalStorage";
+import { UserData } from "@/entities/types/client";
+import { LoginOpts } from "@/app/api/auth/login/route";
+import { ApiResponse, LoginResponse } from "@/entities/types/responses";
+import { redirect, RedirectType } from "next/navigation";
 
 export const Login = () => {
     const [showAppPassword, setShowAppPassword] = useState(false);
 
-    const handleLogin = (formData: FormData) => {
-        const username = formData.get("username");
-        const appPassword = formData.get("appPassword");
-        const password = formData.get("password");
+    const setUserData = useLocalStorage<UserData>("userData")[1];
+
+    const handleLogin = async (formData: FormData) => {
+        const identifier = String(formData.get("username"));
+        const appPassword = String(formData.get("appPassword"));
+        const password = String(formData.get("password"));
+
+        if (password && appPassword == "null") {
+            const loginBody: LoginOpts = {
+                identifier,
+                password,
+            };
+
+            const loginReq = new Request("/api/auth/login", {
+                method: "POST",
+                body: JSON.stringify(loginBody),
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+
+            const res: ApiResponse = await (await fetch(loginReq)).json();
+            const { appPassword } = res.data as LoginResponse;
+            setUserData({ identifier, appPassword });
+        }
+
+        if (appPassword != "null") {
+            setUserData({ identifier, appPassword });
+        }
+
+        redirect("/home", RedirectType.push);
     };
 
     return (
