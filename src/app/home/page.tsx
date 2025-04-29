@@ -2,13 +2,13 @@
 
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { redirect, RedirectType } from "next/navigation";
+import { UserData } from "@/entities/types/client";
 
 const Home = () => {
-    const appPasswordFromStorage = useLocalStorage<{ appPassword: string }>(
-        "appPassword",
-    )[0];
+    const userData = useLocalStorage<UserData>("userData")[0];
 
-    if (!appPasswordFromStorage) redirect("/", RedirectType.replace);
+    if (!userData || !userData.appPassword || !userData.identifier)
+        redirect("/", RedirectType.replace);
     return <></>;
 };
 

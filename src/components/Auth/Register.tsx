@@ -12,6 +12,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { RegisterOpts } from "@/app/api/auth/register/route";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { UserData } from "@/entities/types/client";
+import { redirect, RedirectType } from "next/navigation";
 
 export const Register = () => {
     const [isAppPasswordVisible, setIsAppPasswordVisible] = useState(false);
@@ -55,6 +56,7 @@ export const Register = () => {
         await fetch(registerReq);
 
         setUserData({ identifier, appPassword });
+        redirect("/home", RedirectType.push);
     };
 
     return (

@@ -13,7 +13,7 @@ export default function Index() {
     const [showLogin, setShowLogin] = useState(false);
     const userData = useLocalStorage<UserData>("userData")[0];
 
-    if (userData) {
+    if (userData && userData.identifier && userData.appPassword) {
         redirect("/home", RedirectType.replace);
     }
 
