@@ -8,7 +8,7 @@ import { Dispatch, FC, SetStateAction, useState } from "react";
 import { LucideCalendar } from "@/components/Icons/LucideCalendar";
 import { AnimatePresence, motion } from "motion/react";
 
-export interface CalendarProps {
+interface CalendarProps {
     selected: Date;
     setSelected: Dispatch<SetStateAction<Date>>;
 }
@@ -20,10 +20,13 @@ export const Calendar: FC<CalendarProps> = ({ selected, setSelected }) => {
     };
 
     return (
-        <div className="bg-ctp-base outline-ctp-mauve flex flex-col gap-2 rounded-2xl p-4 outline-2">
+        <div className="bg-ctp-base outline-ctp-mauve flex flex-col justify-between gap-2 rounded-2xl p-4 outline-2">
             <div className="flex items-center gap-2">
                 <p>Post on:</p>
-                <span className="bg-ctp-crust flex rounded p-1 pr-1.5 pl-1.5">
+                <button
+                    className="bg-ctp-crust flex rounded p-1 pr-1.5 pl-1.5"
+                    onClick={handleShowModal}
+                >
                     <p className="w-5 text-center">
                         {selected?.getDate().toString().padStart(2, "0")}
                     </p>
@@ -36,7 +39,7 @@ export const Calendar: FC<CalendarProps> = ({ selected, setSelected }) => {
                     </p>
                     /
                     <p className="w-9 text-center">{selected?.getFullYear()}</p>
-                </span>
+                </button>
                 <button>
                     <LucideCalendar
                         className="text-ctp-mauve"
