@@ -61,9 +61,9 @@ export const Register = () => {
 
     return (
         <form className="flex flex-col gap-2" action={handleRegister}>
-            <div className="font-light text-sm flex flex-col align-middle h-fit gap-0.5">
+            <div className="flex h-fit flex-col gap-0.5 align-middle text-sm font-light">
                 <p className="">Handle</p>
-                <div className="rounded-2xl bg-ctp-crust pl-3 pr-4 p-2 flex items-center gap-2">
+                <div className="bg-ctp-crust flex items-center gap-2 rounded-2xl p-2 pr-4 pl-3">
                     <LucideAtSign className="text-ctp-blue" />
                     <input
                         type="text"
@@ -75,9 +75,9 @@ export const Register = () => {
                     />
                 </div>
             </div>
-            <div className="font-light text-sm flex flex-col align-middle h-fit gap-0.5">
+            <div className="flex h-fit flex-col gap-0.5 align-middle text-sm font-light">
                 <p className="">App Password</p>
-                <div className="rounded-2xl bg-ctp-crust pl-3 pr-4 p-2 flex items-center gap-2">
+                <div className="bg-ctp-crust flex items-center gap-2 rounded-2xl p-2 pr-4 pl-3">
                     <LucideKeyRound className="text-ctp-green" />
                     <input
                         type={isAppPasswordVisible ? "text" : "password"}
@@ -92,22 +92,22 @@ export const Register = () => {
                         whileTap={{ y: 2 }}
                     >
                         {isAppPasswordVisible ? (
-                            <LucideEyeOff className="w-4 h-4" />
+                            <LucideEyeOff className="h-4 w-4" />
                         ) : (
-                            <LucideEye className="w-4 h-4" />
+                            <LucideEye className="h-4 w-4" />
                         )}
                     </motion.div>
                     <motion.a
                         href="https://bsky.app/settings/app-passwords"
                         whileHover={{ scale: 1.05 }}
                     >
-                        <LucideCircleHelp className="text-ctp-green w-4 h-4" />
+                        <LucideCircleHelp className="text-ctp-green h-4 w-4" />
                     </motion.a>
                 </div>
             </div>
-            <div className="font-light text-sm flex flex-col align-middle h-fit gap-0.5">
+            <div className="flex h-fit flex-col gap-0.5 align-middle text-sm font-light">
                 <p className="">Password (optional)</p>
-                <div className="rounded-2xl bg-ctp-crust pl-3 pr-4 p-2 flex items-center gap-2">
+                <div className="bg-ctp-crust flex items-center gap-2 rounded-2xl p-2 pr-4 pl-3">
                     <LucideKeyRound className="text-ctp-pink" />
                     <input
                         type={isPasswordVisible ? "text" : "password"}
@@ -122,9 +122,9 @@ export const Register = () => {
                         whileTap={{ y: 2 }}
                     >
                         {isPasswordVisible ? (
-                            <LucideEyeOff className="w-4 h-4" />
+                            <LucideEyeOff className="h-4 w-4" />
                         ) : (
-                            <LucideEye className="w-4 h-4" />
+                            <LucideEye className="h-4 w-4" />
                         )}
                     </motion.div>
                     <div className="relative">
@@ -134,7 +134,7 @@ export const Register = () => {
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ y: 1 }}
                         >
-                            <LucideCircleHelp className="text-ctp-green w-4 h-4 cursor-help" />
+                            <LucideCircleHelp className="text-ctp-green h-4 w-4 cursor-help" />
                         </motion.button>
                         <AnimatePresence initial={false}>
                             {isPasswordTooltipVisible && (
@@ -142,7 +142,7 @@ export const Register = () => {
                                     initial={{ opacity: 0, scale: 0 }}
                                     animate={{ opacity: 1, scale: 1 }}
                                     exit={{ opacity: 0, scale: 0 }}
-                                    className="absolute -top-2 left-6 bg-ctp-mantle outline-ctp-green outline-1 rounded-2xl h-fit w-96 p-4 flex flex-col gap-2"
+                                    className="bg-ctp-mantle outline-ctp-green absolute -top-2 left-6 flex h-fit w-96 flex-col gap-2 rounded-2xl p-4 outline-1"
                                 >
                                     <LucideInfo />
                                     <p>
@@ -165,7 +165,7 @@ export const Register = () => {
             </div>
 
             <motion.button
-                className="text-sm rounded-2xl h-8 bg-gradient-to-tl from-ctp-green via-ctp-sky to-ctp-blue text-ctp-crust flex items-center justify-center gap-2 hover:underline group"
+                className="from-ctp-green via-ctp-sky to-ctp-blue text-ctp-crust group flex h-8 items-center justify-center gap-2 rounded-2xl bg-gradient-to-tl text-sm hover:underline"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.8 }}
                 type="submit"
