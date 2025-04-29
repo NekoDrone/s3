@@ -1,7 +1,7 @@
 "use client";
 
 import { Login } from "@/components/Auth/Login";
-import { Footer } from "@/components/HomePage/Footer";
+import { Footer } from "@/components/Misc/Footer";
 import { Register } from "@/components/Auth/Register";
 import { Dispatch, FC, useState } from "react";
 import { motion } from "motion/react";
