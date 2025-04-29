@@ -6,6 +6,7 @@ import { Dispatch, FC, useState } from "react";
 import { useHotkeys } from "react-hotkeys-hook";
 import { Calendar } from "@/components/DateTime/Calendar";
 import { TimePicker } from "@/components/DateTime/TimePicker";
+import { PostContent } from "@/components/Home/PostContent";
 
 export const SchedulePost = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -74,6 +75,7 @@ const SchedulePostModal: FC<ModalProps> = ({ setIsModalOpen }) => {
                 exit={{ opacity: 0 }}
                 transition={{ type: "tween", duration: 0.3, ease: "easeInOut" }}
             >
+                <PostContent />
                 <Calendar
                     selected={selectedDate}
                     setSelected={setSelectedDate}
