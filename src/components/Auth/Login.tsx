@@ -54,9 +54,9 @@ export const Login = () => {
 
     return (
         <form className="flex flex-col gap-2" action={handleLogin}>
-            <div className="font-light text-sm flex flex-col align-middle h-fit gap-0.5">
+            <div className="flex h-fit flex-col gap-0.5 align-middle text-sm font-light">
                 <p className="">Handle</p>
-                <div className="rounded-2xl bg-ctp-crust pl-3 pr-4 p-2 flex items-center gap-2">
+                <div className="bg-ctp-crust flex items-center gap-2 rounded-2xl p-2 pr-4 pl-3">
                     <LucideAtSign className="text-ctp-blue" />
                     <input
                         type="text"
@@ -83,7 +83,7 @@ export const Login = () => {
             </div>
 
             <motion.button
-                className="text-sm rounded-2xl h-8 bg-gradient-to-br from-ctp-pink via-ctp-lavender to-ctp-mauve text-ctp-crust flex items-center justify-center gap-2 hover:underline group"
+                className="from-ctp-pink via-ctp-lavender to-ctp-mauve text-ctp-crust group flex h-8 items-center justify-center gap-2 rounded-2xl bg-gradient-to-br text-sm hover:underline"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.8 }}
                 type="submit"
@@ -121,9 +121,9 @@ const AppPasswordInput: FC<InputProps> = ({
     };
 
     return (
-        <div className="font-light text-sm flex flex-col align-middle h-fit gap-0.5">
+        <div className="flex h-fit flex-col gap-0.5 align-middle text-sm font-light">
             <p className="">App Password</p>
-            <div className="rounded-2xl bg-ctp-crust pl-3 pr-4 p-2 flex items-center gap-2">
+            <div className="bg-ctp-crust flex items-center gap-2 rounded-2xl p-2 pr-4 pl-3">
                 <LucideKeyRound className="text-ctp-mauve" />
                 <input
                     type={isAppPasswordVisible ? "text" : "password"}
@@ -138,9 +138,9 @@ const AppPasswordInput: FC<InputProps> = ({
                     whileTap={{ y: 2 }}
                 >
                     {isAppPasswordVisible ? (
-                        <LucideEyeOff className="w-4 h-4" />
+                        <LucideEyeOff className="h-4 w-4" />
                     ) : (
-                        <LucideEye className="w-4 h-4" />
+                        <LucideEye className="h-4 w-4" />
                     )}
                 </motion.div>
                 <motion.div
@@ -157,7 +157,7 @@ const AppPasswordInput: FC<InputProps> = ({
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ y: 1 }}
                     >
-                        <LucideCircleHelp className="text-ctp-mauve w-4 h-4 cursor-help" />
+                        <LucideCircleHelp className="text-ctp-mauve h-4 w-4 cursor-help" />
                     </motion.button>
                     <AnimatePresence initial={false}>
                         {isAppPassTooltipVisible && (
@@ -165,7 +165,7 @@ const AppPasswordInput: FC<InputProps> = ({
                                 initial={{ opacity: 0, scale: 0 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 exit={{ opacity: 0, scale: 0 }}
-                                className="absolute -top-2 left-6 bg-ctp-mantle outline-ctp-mauve outline-1 rounded-2xl h-fit w-96 p-4 flex flex-col gap-2"
+                                className="bg-ctp-mantle outline-ctp-mauve absolute -top-2 left-6 flex h-fit w-96 flex-col gap-2 rounded-2xl p-4 outline-1"
                             >
                                 <LucideInfo />
                                 <p>
@@ -216,9 +216,9 @@ const PasswordInput: FC<InputProps> = ({
     };
 
     return (
-        <div className="font-light text-sm flex flex-col align-middle h-fit gap-0.5">
+        <div className="flex h-fit flex-col gap-0.5 align-middle text-sm font-light">
             <p className="">Password</p>
-            <div className="rounded-2xl bg-ctp-crust pl-3 pr-4 p-2 flex items-center gap-2">
+            <div className="bg-ctp-crust flex items-center gap-2 rounded-2xl p-2 pr-4 pl-3">
                 <LucideKeyRound className="text-ctp-pink" />
                 <input
                     type={isPasswordVisible ? "text" : "password"}
@@ -233,9 +233,9 @@ const PasswordInput: FC<InputProps> = ({
                     whileTap={{ y: 2 }}
                 >
                     {isPasswordVisible ? (
-                        <LucideEyeOff className="w-4 h-4" />
+                        <LucideEyeOff className="h-4 w-4" />
                     ) : (
-                        <LucideEye className="w-4 h-4" />
+                        <LucideEye className="h-4 w-4" />
                     )}
                 </motion.div>
                 <motion.div
@@ -252,7 +252,7 @@ const PasswordInput: FC<InputProps> = ({
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ y: 1 }}
                     >
-                        <LucideCircleHelp className="text-ctp-mauve w-4 h-4 cursor-help" />
+                        <LucideCircleHelp className="text-ctp-mauve h-4 w-4 cursor-help" />
                     </motion.button>
                     <AnimatePresence initial={false}>
                         {isPasswordTooltipVisible && (
@@ -260,7 +260,7 @@ const PasswordInput: FC<InputProps> = ({
                                 initial={{ opacity: 0, scale: 0 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 exit={{ opacity: 0, scale: 0 }}
-                                className="absolute -top-2 left-6 bg-ctp-mantle outline-ctp-mauve outline-1 rounded-2xl h-fit w-96 p-4 flex flex-col gap-2"
+                                className="bg-ctp-mantle outline-ctp-mauve absolute -top-2 left-6 flex h-fit w-96 flex-col gap-2 rounded-2xl p-4 outline-1"
                             >
                                 <LucideInfo />
                                 <p>

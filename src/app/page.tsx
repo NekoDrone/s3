@@ -18,20 +18,20 @@ export default function Index() {
     }
 
     return (
-        <div className="flex min-h-screen flex-col items-center justify-center bg-ctp-base gap-8">
+        <div className="bg-ctp-base flex min-h-screen flex-col items-center justify-center gap-8">
             <div className="flex flex-col items-center">
                 <p className="text-2xl font-medium">
                     Serenity&#39;s Skeet Scheduler
                 </p>
-                <p className="font-light text-sm">
+                <p className="text-sm font-light">
                     Schedule your Skeets with Serenity :D
                 </p>
             </div>
             <div
-                className={`${showLogin ? "outline-ctp-mauve" : "outline-ctp-green"} outline-1 p-8 pt-7 pb-7 rounded-2xl flex flex-col justify-center items-center gap-2`}
+                className={`${showLogin ? "outline-ctp-mauve" : "outline-ctp-green"} flex flex-col items-center justify-center gap-2 rounded-2xl p-8 pt-7 pb-7 outline-1`}
             >
                 {showLogin ? <Login /> : <Register />}
-                <div className="text-sm pt-2 flex flex-col gap-2 items-center">
+                <div className="flex flex-col items-center gap-2 pt-2 text-sm">
                     {showLogin ? (
                         <p>Don&#39;t have an account?</p>
                     ) : (
@@ -69,17 +69,17 @@ const LoginRegisterToggle: FC<ToggleProps> = ({ showLogin, setShowLogin }) => {
     };
 
     return (
-        <div className="grid grid-cols-3 gap-2 text-sm items-center">
+        <div className="grid grid-cols-3 items-center gap-2 text-sm">
             <div>
                 <p>Register</p>
             </div>
             <div className="flex justify-center">
                 <motion.button
                     onClick={handleToggle}
-                    className={`rounded-3xl bg-ctp-overlay-0 p-1 flex w-11 ${showLogin ? loginPosition : registerPosition}`}
+                    className={`bg-ctp-overlay-0 flex w-11 rounded-3xl p-1 ${showLogin ? loginPosition : registerPosition}`}
                 >
                     <motion.span
-                        className={`rounded-full h-4 w-4 ${showLogin ? loginGradient : registerGradient}`}
+                        className={`h-4 w-4 rounded-full ${showLogin ? loginGradient : registerGradient}`}
                         layout="position"
                         transition={{
                             type: "spring",

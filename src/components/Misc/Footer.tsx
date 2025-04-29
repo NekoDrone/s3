@@ -24,7 +24,7 @@ export const Footer = () => {
             />
             <p className="text-sm font-light">by </p>
             <a
-                className="text-sm font-light text-ctp-lavender underline"
+                className="text-ctp-lavender text-sm font-light underline"
                 href="https://serenity.tgirl.gay"
             >
                 Serenity
