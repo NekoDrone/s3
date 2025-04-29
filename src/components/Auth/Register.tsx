@@ -9,6 +9,8 @@ import { useState } from "react";
 import { LucideEyeOff } from "@/components/Icons/LucideEyeOff";
 import { LucideInfo } from "@/components/Icons/LucideInfo";
 import { AnimatePresence, motion } from "motion/react";
+import { RegisterOpts } from "@/app/api/auth/register/route";
+import { useLocalStorage } from "@/hooks/useLocalStorage";
 
 export const Register = () => {
     const [isAppPasswordVisible, setIsAppPasswordVisible] = useState(false);
@@ -28,10 +30,32 @@ export const Register = () => {
         setIsPasswordTooltipVisible(!isPasswordTooltipVisible);
     };
 
-    const handleRegister = (formData: FormData) => {
-        const username = formData.get("username");
-        const appPassword = formData.get("appPassword");
-        const password = formData.get("password");
+    const setAppPasswordObject = useLocalStorage<{
+        appPassword: string;
+    }>("appPassword")[1];
+
+    const handleRegister = async (formData: FormData) => {
+        const identifier = String(formData.get("username"));
+        const appPassword = String(formData.get("appPassword"));
+        const password = String(formData.get("password"));
+
+        const registerBody: RegisterOpts = {
+            identifier,
+            appPassword,
+            password,
+        };
+
+        const registerReq = new Request("/api/auth/register", {
+            method: "POST",
+            body: JSON.stringify(registerBody),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+
+        await fetch(registerReq);
+
+        setAppPasswordObject({ appPassword });
     };
 
     return (

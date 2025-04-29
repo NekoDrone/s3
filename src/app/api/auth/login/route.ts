@@ -9,6 +9,7 @@ import {
 } from "@/entities/types/responses";
 import { verifyHash } from "@/functions/hash";
 import { ErrorType } from "@/entities/types/errors";
+import { decryptString } from "@/functions/enc";
 
 // Only call this endpoint when user tries to log in with password.
 // If user has a cached App Password, or can remember on the login,
@@ -103,11 +104,10 @@ export async function POST(req: Request) {
         });
     }
 
-    const responseData: LoginResponse | undefined =
-        await db.query.accounts.findFirst({
-            where: eq(accounts.identifier, identifier),
-        });
-    if (!responseData) {
+    const userData = await db.query.accounts.findFirst({
+        where: eq(accounts.identifier, identifier),
+    });
+    if (!userData) {
         const response: ApiResponse = {
             status: StatusType.ERROR,
             error: {
@@ -124,6 +124,38 @@ export async function POST(req: Request) {
             },
         });
     }
+
+    const secret = process.env.ATP_AP_ENC_KEY ?? "";
+    if (secret == "") {
+        const response: ApiResponse = {
+            status: StatusType.ERROR,
+            error: {
+                message:
+                    "You did not set the encryption key. Please check your .env file or deployment configs.",
+                type: ErrorType.ENV_UNSET,
+            },
+        };
+        return new Response(JSON.stringify(response), {
+            status: 500,
+            statusText: "Internal Server Error",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+    }
+
+    const { appPasswordEncrypted, appPasswordInitVec } = userData;
+
+    const decryptedAppPassword = decryptString(
+        appPasswordEncrypted,
+        appPasswordInitVec,
+        secret,
+    );
+
+    const responseData: LoginResponse = {
+        identifier,
+        appPassword: decryptedAppPassword,
+    };
 
     const response: ApiResponse = {
         status: StatusType.SUCCESS,

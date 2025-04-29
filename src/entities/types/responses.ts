@@ -16,7 +16,10 @@ export enum StatusType {
 
 type ResponseData = LoginResponse | PostsResponse | BskyPostResponse;
 
-export type LoginResponse = z.infer<typeof accountsSelectSchema>;
+export type LoginResponse = {
+    identifier: string;
+    appPassword: string;
+};
 
 export type PostsResponse = z.infer<typeof postsSelectSchemaArray>;
 

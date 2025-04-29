@@ -5,9 +5,18 @@ import { Footer } from "@/components/HomePage/Footer";
 import { Register } from "@/components/Auth/Register";
 import { Dispatch, FC, useState } from "react";
 import { motion } from "motion/react";
+import { useLocalStorage } from "@/hooks/useLocalStorage";
+import { redirect, RedirectType } from "next/navigation";
 
-export default function Home() {
+export default function Index() {
     const [showLogin, setShowLogin] = useState(false);
+    const appPasswordFromStorage = useLocalStorage<{ appPassword: string }>(
+        "appPassword",
+    )[0];
+
+    if (appPasswordFromStorage) {
+        redirect("/home", RedirectType.replace);
+    }
 
     return (
         <div className="flex min-h-screen flex-col items-center justify-center bg-ctp-base gap-8">

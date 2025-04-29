@@ -20,8 +20,8 @@ export function encryptString(input: string, secret: string) {
 
 export function decryptString(
     encrypted: string,
-    secret: string,
     initVecHex: string,
+    secret: string,
 ) {
     const initVec = Buffer.from(initVecHex, "hex");
     const key = crypto
