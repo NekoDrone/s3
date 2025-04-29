@@ -1,4 +1,4 @@
-import { Account, accounts, accountsInsertSchema } from "@/db/schema/accounts";
+import { Account, accounts } from "@/db/schema/accounts";
 import db from "@/db";
 import { ApiResponse, StatusType } from "@/entities/types/responses";
 import { z } from "zod";
