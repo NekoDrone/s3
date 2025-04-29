@@ -7,8 +7,8 @@ import { LucideChevronRight } from "@/components/Icons/LucideChevronRight";
 import { Dispatch, FC, SetStateAction } from "react";
 
 export interface CalendarProps {
-    selected: Date;
-    setSelected: Dispatch<SetStateAction<Date>>;
+    selected: Date | undefined;
+    setSelected: Dispatch<SetStateAction<Date | undefined>>;
 }
 export const Calendar: FC<CalendarProps> = ({ selected, setSelected }) => {
     const defaultClasses = getDefaultClassNames();

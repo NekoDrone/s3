@@ -1,3 +1,5 @@
+"use client";
+
 import { LucidePlus } from "@/components/Icons/LucidePlus";
 import { AnimatePresence, motion } from "motion/react";
 import { Dispatch, FC, useState } from "react";
@@ -43,6 +45,8 @@ interface ModalProps {
 }
 
 const SchedulePostModal: FC<ModalProps> = ({ setIsModalOpen }) => {
+    const [selectedDate, setSelectedDate] = useState<Date | undefined>();
+
     const handleBackdropClose = () => {
         setIsModalOpen(false);
     };
@@ -68,7 +72,10 @@ const SchedulePostModal: FC<ModalProps> = ({ setIsModalOpen }) => {
                 exit={{ opacity: 0 }}
                 transition={{ type: "tween", duration: 0.3, ease: "easeInOut" }}
             >
-                <Calendar />
+                <Calendar
+                    selected={selectedDate}
+                    setSelected={setSelectedDate}
+                />
             </motion.div>
         </div>
     );
