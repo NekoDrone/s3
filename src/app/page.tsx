@@ -7,14 +7,13 @@ import { Dispatch, FC, useState } from "react";
 import { motion } from "motion/react";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { redirect, RedirectType } from "next/navigation";
+import { UserData } from "@/entities/types/client";
 
 export default function Index() {
     const [showLogin, setShowLogin] = useState(false);
-    const appPasswordFromStorage = useLocalStorage<{ appPassword: string }>(
-        "appPassword",
-    )[0];
+    const userData = useLocalStorage<UserData>("userData")[0];
 
-    if (appPasswordFromStorage) {
+    if (userData) {
         redirect("/home", RedirectType.replace);
     }
 

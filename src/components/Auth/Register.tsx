@@ -11,6 +11,7 @@ import { LucideInfo } from "@/components/Icons/LucideInfo";
 import { AnimatePresence, motion } from "motion/react";
 import { RegisterOpts } from "@/app/api/auth/register/route";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
+import { UserData } from "@/entities/types/client";
 
 export const Register = () => {
     const [isAppPasswordVisible, setIsAppPasswordVisible] = useState(false);
@@ -30,9 +31,7 @@ export const Register = () => {
         setIsPasswordTooltipVisible(!isPasswordTooltipVisible);
     };
 
-    const setAppPasswordObject = useLocalStorage<{
-        appPassword: string;
-    }>("appPassword")[1];
+    const setUserData = useLocalStorage<UserData>("userData")[1];
 
     const handleRegister = async (formData: FormData) => {
         const identifier = String(formData.get("username"));
@@ -55,7 +54,7 @@ export const Register = () => {
 
         await fetch(registerReq);
 
-        setAppPasswordObject({ appPassword });
+        setUserData({ identifier, appPassword });
     };
 
     return (
