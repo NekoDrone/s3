@@ -37,7 +37,7 @@ export const Calendar: FC<CalendarProps> = ({ selected, setSelected }) => {
                     </button>
                 ),
             }}
-            className="bg-ctp-surface-0 rounded-2xl p-3"
+            className="bg-ctp-surface-0 rounded-2xl p-4 pb-6 outline-2 outline-ctp-mauve"
             classNames={{
                 button_previous:
                     "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100 absolute left-1 top-0 transition text-ctp-blue",
@@ -55,6 +55,7 @@ export const Calendar: FC<CalendarProps> = ({ selected, setSelected }) => {
                 outside:
                     "text-muted-foreground opacity-40 hover:bg-transparent",
                 day_button: "w-full h-full",
+                today: "bg-ctp-pink text-ctp-crust",
             }}
         />
     );
