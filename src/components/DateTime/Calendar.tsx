@@ -50,10 +50,11 @@ export const Calendar: FC<CalendarProps> = ({ selected, setSelected }) => {
                 week: "grid grid-cols-7 gap-4",
                 weeks: "flex flex-col gap-4",
                 weekdays: "grid grid-cols-7 gap-4 text-ctp-mauve",
-                day: "text-center rounded-full hover:bg-ctp-overlay-0 transition",
-                selected: "bg-ctp-green text-ctp-crust transition",
+                day: "text-center rounded-full hover:bg-ctp-overlay-0 aria-selected:bg-ctp-green transition",
+                selected: "text-ctp-crust transition",
                 outside:
                     "text-muted-foreground opacity-40 hover:bg-transparent",
+                day_button: "w-full h-full",
             }}
         />
     );
