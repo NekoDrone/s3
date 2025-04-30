@@ -41,8 +41,10 @@ export const Login = () => {
             });
 
             const res: ApiResponse = await (await fetch(loginReq)).json();
-            const { appPassword } = res.data as LoginResponse;
-            setUserData({ identifier, appPassword });
+            if (res.data) {
+                const { appPassword } = res.data as LoginResponse;
+                setUserData({ identifier, appPassword });
+            }
         }
 
         if (appPassword != "null") {
@@ -151,14 +153,14 @@ const AppPasswordInput: FC<InputProps> = ({
                     <LucideArrowRightLeft className="text-ctp-pink" />
                 </motion.div>
                 <div className="relative">
-                    <motion.button
+                    <motion.div
                         onClick={handleAppPassTooltipToggle}
                         className="flex items-center"
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ y: 1 }}
                     >
                         <LucideCircleHelp className="text-ctp-mauve h-4 w-4 cursor-help" />
-                    </motion.button>
+                    </motion.div>
                     <AnimatePresence initial={false}>
                         {isAppPassTooltipVisible && (
                             <motion.div
@@ -246,14 +248,14 @@ const PasswordInput: FC<InputProps> = ({
                     <LucideArrowRightLeft className="text-ctp-mauve" />
                 </motion.div>
                 <div className="relative">
-                    <motion.button
+                    <motion.div
                         onClick={handlePasswordTooltipToggle}
                         className="flex items-center"
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ y: 1 }}
                     >
                         <LucideCircleHelp className="text-ctp-mauve h-4 w-4 cursor-help" />
-                    </motion.button>
+                    </motion.div>
                     <AnimatePresence initial={false}>
                         {isPasswordTooltipVisible && (
                             <motion.div

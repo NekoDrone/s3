@@ -128,14 +128,14 @@ export const Register = () => {
                         )}
                     </motion.div>
                     <div className="relative">
-                        <motion.button
+                        <motion.div
                             onClick={handlePasswordTooltipToggle}
                             className="flex items-center"
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ y: 1 }}
                         >
                             <LucideCircleHelp className="text-ctp-green h-4 w-4 cursor-help" />
-                        </motion.button>
+                        </motion.div>
                         <AnimatePresence initial={false}>
                             {isPasswordTooltipVisible && (
                                 <motion.div
