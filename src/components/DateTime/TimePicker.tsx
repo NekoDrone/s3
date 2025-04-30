@@ -4,11 +4,10 @@ import { ChangeEvent, Dispatch, FC, SetStateAction, useState } from "react";
 import { LucideClock } from "@/components/Icons/LucideClock";
 
 interface PickerProps {
-    selected: string;
     setSelected: Dispatch<SetStateAction<string>>;
 }
 
-export const TimePicker: FC<PickerProps> = ({ selected, setSelected }) => {
+export const TimePicker: FC<PickerProps> = ({ setSelected }) => {
     const now = new Date();
     const [currHour, setCurrHour] = useState(
         now.getHours().toString().padStart(2, "0"),
@@ -30,16 +29,14 @@ export const TimePicker: FC<PickerProps> = ({ selected, setSelected }) => {
     };
 
     return (
-        <div className="bg-ctp-base outline-ctp-green flex items-center justify-between gap-2 rounded-2xl p-4 outline-2">
-            <div className="items-middle flex items-center justify-start gap-2">
-                <p>Post at:</p>
-                <input
-                    defaultValue={`${currHour}:${currMinute}`}
-                    onChange={handleChange}
-                    type="time"
-                    className="bg-ctp-crust rounded p-1 pr-1.5 pl-1.5"
-                />
-            </div>
+        <div className="flex items-center gap-2">
+            <p>at</p>
+            <input
+                defaultValue={`${currHour}:${currMinute}`}
+                onChange={handleChange}
+                type="time"
+                className="bg-ctp-crust rounded p-1 pr-1.5 pl-1.5 focus:outline-0"
+            />
             <LucideClock className="text-ctp-green" />
         </div>
     );
