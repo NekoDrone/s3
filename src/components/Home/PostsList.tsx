@@ -84,56 +84,61 @@ export const PostsList = () => {
     return (
         <div>
             <Suspense fallback={<Loading />}>
-                <div className="border-ctp-overlay-0 flex flex-col justify-center gap-0 rounded-4xl border-1 p-4 pt-2">
-                    {isPostsPending || (isDisplayNamePending && <Loading />)}
-                    {posts &&
-                        isPostsFetched &&
-                        posts.map((post) => {
-                            return (
-                                <div key={post.id}>
-                                    {displayName && (
-                                        <ProfileReadoutWithChildren
-                                            handleDeletionClick={() => {
-                                                deletePostMutation.mutate({
-                                                    id: post.id,
-                                                    account: post.account,
-                                                });
-                                            }}
-                                            displayName={displayName}
-                                        >
-                                            <p className="flex items-center gap-1 text-sm">
-                                                <span className="text-ctp-mauve">
-                                                    <LucideCalendar />
-                                                </span>
-                                                {format(
-                                                    post.postOn,
-                                                    "do LLLL yyyy",
-                                                    {
-                                                        locale: enGB,
-                                                    },
-                                                )}{" "}
-                                                <span className="text-ctp-green">
-                                                    <LucideClock />
-                                                </span>
-                                                {format(
-                                                    post.postOn,
-                                                    "hh:mm aaa",
-                                                    {
-                                                        locale: enGB,
-                                                    },
-                                                )}
-                                            </p>
-                                            <div className="flex flex-col gap-1">
-                                                <p className="w-96">
-                                                    {post.postContent}
+                {posts && posts.length == 0 ? (
+                    <p>Schedule your first skeet below!</p>
+                ) : (
+                    <div className="border-ctp-overlay-0 flex flex-col justify-center gap-0 rounded-4xl border-1 p-4 pt-2">
+                        {isPostsPending ||
+                            (isDisplayNamePending && <Loading />)}
+                        {posts &&
+                            isPostsFetched &&
+                            posts.map((post) => {
+                                return (
+                                    <div key={post.id}>
+                                        {displayName && (
+                                            <ProfileReadoutWithChildren
+                                                handleDeletionClick={() => {
+                                                    deletePostMutation.mutate({
+                                                        id: post.id,
+                                                        account: post.account,
+                                                    });
+                                                }}
+                                                displayName={displayName}
+                                            >
+                                                <p className="flex items-center gap-1 text-sm">
+                                                    <span className="text-ctp-mauve">
+                                                        <LucideCalendar />
+                                                    </span>
+                                                    {format(
+                                                        post.postOn,
+                                                        "do LLLL yyyy",
+                                                        {
+                                                            locale: enGB,
+                                                        },
+                                                    )}{" "}
+                                                    <span className="text-ctp-green">
+                                                        <LucideClock />
+                                                    </span>
+                                                    {format(
+                                                        post.postOn,
+                                                        "hh:mm aaa",
+                                                        {
+                                                            locale: enGB,
+                                                        },
+                                                    )}
                                                 </p>
-                                            </div>
-                                        </ProfileReadoutWithChildren>
-                                    )}
-                                </div>
-                            );
-                        })}
-                </div>
+                                                <div className="flex flex-col gap-1">
+                                                    <p className="w-96">
+                                                        {post.postContent}
+                                                    </p>
+                                                </div>
+                                            </ProfileReadoutWithChildren>
+                                        )}
+                                    </div>
+                                );
+                            })}
+                    </div>
+                )}
             </Suspense>
         </div>
     );
