@@ -25,4 +25,4 @@ export const accounts = sqliteTable(
 export const accountsSelectSchema = createSelectSchema(accounts);
 export const accountsInsertSchema = createInsertSchema(accounts);
 
-export type Account = z.infer<typeof accountsInsertSchema>;
+export type AccountInsert = z.infer<typeof accountsInsertSchema>;
