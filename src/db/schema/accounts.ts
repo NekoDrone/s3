@@ -15,7 +15,7 @@ export const accounts = sqliteTable(
             .notNull()
             .default(sql`(unixepoch('now'))`),
         did: text("did").notNull(),
-        avatarUri: text("avatar_uri").notNull(),
+        avatarUri: text("avatar_uri"),
     },
     (table) => {
         return [index("idx_accounts_identifier").on(table.identifier)];
