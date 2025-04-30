@@ -13,6 +13,7 @@ import { RegisterOpts } from "@/app/api/auth/register/route";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { UserData } from "@/entities/types/client";
 import { redirect, RedirectType } from "next/navigation";
+import { ApiResponse, RegisterResponse } from "@/entities/types/responses";
 
 export const Register = () => {
     const [isAppPasswordVisible, setIsAppPasswordVisible] = useState(false);
@@ -53,10 +54,17 @@ export const Register = () => {
             },
         });
 
-        await fetch(registerReq);
-
-        setUserData({ identifier, appPassword });
-        redirect("/home", RedirectType.push);
+        const res: ApiResponse = await (await fetch(registerReq)).json();
+        if (res.data && "id" in res.data) {
+            const data: RegisterResponse = res.data;
+            setUserData({
+                identifier,
+                appPassword,
+                avatar: data.avatarUri,
+                did: data.did,
+            });
+            redirect("/home", RedirectType.push);
+        }
     };
 
     return (
@@ -85,6 +93,7 @@ export const Register = () => {
                         name="appPassword"
                         placeholder="a1b2-c3d4-e5f6-g7h8"
                         className="focus:outline-0"
+                        required
                     />
                     <motion.div
                         onClick={handleAppPasswordVisibleToggle}
@@ -99,6 +108,7 @@ export const Register = () => {
                     </motion.div>
                     <motion.a
                         href="https://bsky.app/settings/app-passwords"
+                        target="_blank"
                         whileHover={{ scale: 1.05 }}
                     >
                         <LucideCircleHelp className="text-ctp-green h-4 w-4" />

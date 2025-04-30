@@ -1,10 +1,11 @@
-import { Account, accounts } from "@/db/schema/accounts";
+import { AccountInsert, accounts } from "@/db/schema/accounts";
 import db from "@/db";
 import { ApiResponse, StatusType } from "@/entities/types/responses";
 import { z } from "zod";
 import { encryptString } from "@/functions/enc";
 import { hashString } from "@/functions/hash";
 import { ErrorType } from "@/entities/types/errors";
+import { agent } from "@/functions/atproto";
 
 export async function POST(req: Request) {
     const body = await req.json();
@@ -17,6 +18,7 @@ export async function POST(req: Request) {
                 message:
                     "Invalid data. Please ensure that you provide the correct type.",
                 details: error,
+                type: ErrorType.TYPE_ERROR,
             },
         };
         return new Response(JSON.stringify(response), {
@@ -28,6 +30,35 @@ export async function POST(req: Request) {
         });
     }
     const { identifier, appPassword, password } = data;
+
+    let did;
+
+    try {
+        did = (await agent.resolveHandle({ handle: identifier })).data.did;
+    } catch (err) {
+        const response: ApiResponse = {
+            status: StatusType.ERROR,
+            error: {
+                message:
+                    "Could not resolve DID from handle. Are you sure the account exists?",
+                details: err,
+                type: RegisterErrorType.INVALID_HANDLE,
+            },
+        };
+        return new Response(JSON.stringify(response), {
+            status: 400,
+            statusText: "Bad Request",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+    }
+    await agent.login({
+        identifier,
+        password: appPassword,
+    });
+    const avatarUri = (await agent.getProfile({ actor: did })).data.avatar;
+    await agent.logout();
 
     const secret = process.env.ATP_AP_ENC_KEY ?? "";
     if (secret == "") {
@@ -55,15 +86,18 @@ export async function POST(req: Request) {
 
     if (password) passwordHash = hashString(password);
 
-    const insertionData: Account = {
+    const insertionData: AccountInsert = {
         identifier,
         appPasswordEncrypted,
         appPasswordInitVec,
         passwordHash,
+        did,
+        avatarUri,
     };
 
     await db.insert(accounts).values(insertionData);
     const response: ApiResponse = {
+        data: insertionData,
         status: StatusType.SUCCESS,
     };
     return new Response(JSON.stringify(response), {
@@ -82,3 +116,8 @@ export const registerOptsSchema = z.object({
 });
 
 export type RegisterOpts = z.infer<typeof registerOptsSchema>;
+
+export enum RegisterErrorType {
+    INVALID_HANDLE = "Invalid handle.",
+    USER_DOES_NOT_EXIST = "User does not exist.",
+}

@@ -15,6 +15,7 @@ import { UserData } from "@/entities/types/client";
 import { LoginOpts } from "@/app/api/auth/login/route";
 import { ApiResponse, LoginResponse } from "@/entities/types/responses";
 import { redirect, RedirectType } from "next/navigation";
+import { agent } from "@/functions/atproto";
 
 export const Login = () => {
     const [showAppPassword, setShowAppPassword] = useState(false);
@@ -41,14 +42,28 @@ export const Login = () => {
             });
 
             const res: ApiResponse = await (await fetch(loginReq)).json();
-            if (res.data) {
-                const { appPassword } = res.data as LoginResponse;
-                setUserData({ identifier, appPassword });
+            if (res.data && "appPassword" in res.data) {
+                const data: LoginResponse = res.data;
+                setUserData({
+                    identifier,
+                    appPassword: data.appPassword,
+                    avatar: data.avatarUri,
+                    did: data.did,
+                });
             }
         }
 
         if (appPassword != "null") {
-            setUserData({ identifier, appPassword });
+            await agent.login({
+                identifier,
+                password: appPassword,
+            });
+
+            const did = (await agent.resolveHandle({ handle: identifier })).data
+                .did;
+            const avatarUri = (await agent.getProfile({ actor: did })).data
+                .avatar;
+            setUserData({ identifier, appPassword, avatar: avatarUri, did });
         }
 
         redirect("/home", RedirectType.push);

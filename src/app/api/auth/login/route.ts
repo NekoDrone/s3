@@ -155,6 +155,8 @@ export async function POST(req: Request) {
     const responseData: LoginResponse = {
         identifier,
         appPassword: decryptedAppPassword,
+        avatarUri: userData.avatarUri,
+        did: userData.did,
     };
 
     const response: ApiResponse = {

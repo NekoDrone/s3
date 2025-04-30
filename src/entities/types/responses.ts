@@ -23,6 +23,8 @@ type ResponseData =
 export type LoginResponse = {
     identifier: string;
     appPassword: string;
+    avatarUri: string | null;
+    did: string;
 };
 
 export type PostsResponse = z.infer<typeof postsSelectSchemaArray>;
