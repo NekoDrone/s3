@@ -5,12 +5,8 @@ import {
 } from "@/entities/types/responses";
 import { ErrorType } from "@/entities/types/errors";
 import db from "@/db";
-import { and, eq, lte } from "drizzle-orm";
-import {
-    postsSelectSchema,
-    postsSelectSchemaArray,
-    scheduledPosts,
-} from "@/db/schema/scheduled_posts";
+import { eq, lte } from "drizzle-orm";
+import { postsSelectSchema, scheduledPosts } from "@/db/schema/scheduled_posts";
 import { accounts, accountsSelectSchema } from "@/db/schema/accounts";
 import { z } from "zod";
 import { agent } from "@/functions/atproto";

@@ -1,4 +1,3 @@
-import { FC, ReactNode } from "react";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { UserData } from "@/entities/types/client";
 import { agent } from "@/functions/atproto";
@@ -7,7 +6,7 @@ import { redirect, RedirectType } from "next/navigation";
 import { Loading } from "@/components/Misc/Loading";
 
 export const ProfileReadout = () => {
-    const [userData, setUserData] = useLocalStorage<UserData>("userData");
+    const userData = useLocalStorage<UserData>("userData")[0];
 
     if (!userData || !userData.appPassword || !userData.identifier)
         redirect("/", RedirectType.replace);

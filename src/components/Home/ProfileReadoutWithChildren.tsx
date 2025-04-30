@@ -1,10 +1,7 @@
 import { FC, MouseEventHandler, ReactNode, useState } from "react";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { UserData } from "@/entities/types/client";
-import { agent } from "@/functions/atproto";
-import { useQuery } from "@tanstack/react-query";
 import { redirect, RedirectType } from "next/navigation";
-import { Loading } from "@/components/Misc/Loading";
 import { LucideTrash2 } from "@/components/Icons/LucideTrash2";
 
 interface ReadoutProps {
@@ -18,7 +15,7 @@ export const ProfileReadoutWithChildren: FC<ReadoutProps> = ({
     handleDeletionClick,
     displayName,
 }) => {
-    const [userData, setUserData] = useLocalStorage<UserData>("userData");
+    const userData = useLocalStorage<UserData>("userData")[0];
 
     const [showDelete, setShowDelete] = useState(false);
 
