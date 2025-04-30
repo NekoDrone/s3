@@ -42,8 +42,8 @@ export const Login = () => {
             });
 
             const res: ApiResponse = await (await fetch(loginReq)).json();
-            if (res.data && "appPassword" in res.data) {
-                const data: LoginResponse = res.data;
+            if (res.data) {
+                const data = res.data as LoginResponse;
                 setUserData({
                     identifier,
                     appPassword: data.appPassword,

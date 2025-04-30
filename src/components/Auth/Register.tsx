@@ -53,10 +53,10 @@ export const Register = () => {
                 "Content-Type": "application/json",
             },
         });
-
         const res: ApiResponse = await (await fetch(registerReq)).json();
-        if (res.data && "id" in res.data) {
-            const data: RegisterResponse = res.data;
+        if (res.data) {
+            const data = res.data as RegisterResponse;
+            console.log("setting user data");
             setUserData({
                 identifier,
                 appPassword,
