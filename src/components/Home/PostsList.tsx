@@ -10,8 +10,8 @@ import { Loading } from "@/components/Misc/Loading";
 import { ProfileReadoutWithChildren } from "@/components/Home/ProfileReadoutWithChildren";
 import { LucideCalendar } from "@/components/Icons/LucideCalendar";
 import { LucideClock } from "@/components/Icons/LucideClock";
-import { DeletePostOpts } from "@/app/api/posts/delete/route";
 import { agent } from "@/functions/atproto";
+import { DeletePostOpts } from "@/entities/types/api";
 
 export const PostsList = () => {
     const userData = useLocalStorage<UserData>("userData")[0];

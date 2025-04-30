@@ -12,11 +12,11 @@ import {
     timeStringToDateSpecified,
     timeStringToDateToday,
 } from "@/functions/dates";
-import { SchedulePostOpts } from "@/app/api/posts/schedule/route";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { UserData } from "@/entities/types/client";
 import { redirect, RedirectType } from "next/navigation";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { SchedulePostOpts } from "@/entities/types/api";
 
 export const SchedulePost = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);

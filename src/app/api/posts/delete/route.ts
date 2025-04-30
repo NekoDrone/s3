@@ -1,9 +1,9 @@
-import { z } from "zod";
 import { ApiResponse, StatusType } from "@/entities/types/responses";
 import { ErrorType } from "@/entities/types/errors";
 import db from "@/db";
 import { scheduledPosts } from "@/db/schema/scheduled_posts";
 import { and, eq } from "drizzle-orm";
+import { deletePostOptsSchema } from "@/entities/types/api";
 
 export async function DELETE(req: Request) {
     const body = await req.json();
@@ -67,10 +67,3 @@ export async function DELETE(req: Request) {
         },
     });
 }
-
-export const deletePostOptsSchema = z.object({
-    id: z.number(),
-    account: z.number(),
-});
-
-export type DeletePostOpts = z.infer<typeof deletePostOptsSchema>;

@@ -1,11 +1,11 @@
 import { AccountInsert, accounts } from "@/db/schema/accounts";
 import db from "@/db";
 import { ApiResponse, StatusType } from "@/entities/types/responses";
-import { z } from "zod";
 import { encryptString } from "@/functions/enc";
 import { hashString } from "@/functions/hash";
 import { ErrorType } from "@/entities/types/errors";
 import { agent } from "@/functions/atproto";
+import { RegisterErrorType, registerOptsSchema } from "@/entities/types/api";
 
 export async function POST(req: Request) {
     const body = await req.json();
@@ -107,17 +107,4 @@ export async function POST(req: Request) {
             "Content-Type": "application/json",
         },
     });
-}
-
-export const registerOptsSchema = z.object({
-    identifier: z.string(),
-    appPassword: z.string(),
-    password: z.string().optional(),
-});
-
-export type RegisterOpts = z.infer<typeof registerOptsSchema>;
-
-export enum RegisterErrorType {
-    INVALID_HANDLE = "Invalid handle.",
-    USER_DOES_NOT_EXIST = "User does not exist.",
 }

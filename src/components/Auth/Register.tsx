@@ -9,11 +9,11 @@ import { useState } from "react";
 import { LucideEyeOff } from "@/components/Icons/LucideEyeOff";
 import { LucideInfo } from "@/components/Icons/LucideInfo";
 import { AnimatePresence, motion } from "motion/react";
-import { RegisterOpts } from "@/app/api/auth/register/route";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { UserData } from "@/entities/types/client";
 import { redirect, RedirectType } from "next/navigation";
 import { ApiResponse, RegisterResponse } from "@/entities/types/responses";
+import { RegisterOpts } from "@/entities/types/api";
 
 export const Register = () => {
     const [isAppPasswordVisible, setIsAppPasswordVisible] = useState(false);

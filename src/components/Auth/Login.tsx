@@ -12,10 +12,10 @@ import { AnimatePresence, motion } from "motion/react";
 import { LucideArrowRightLeft } from "@/components/Icons/LucideArrowRightLeft";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { UserData } from "@/entities/types/client";
-import { LoginOpts } from "@/app/api/auth/login/route";
 import { ApiResponse, LoginResponse } from "@/entities/types/responses";
 import { redirect, RedirectType } from "next/navigation";
 import { agent } from "@/functions/atproto";
+import { LoginOpts } from "@/entities/types/api";
 
 export const Login = () => {
     const [showAppPassword, setShowAppPassword] = useState(false);

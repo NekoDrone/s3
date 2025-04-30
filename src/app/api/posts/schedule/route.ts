@@ -4,10 +4,10 @@ import {
     scheduledPosts,
 } from "@/db/schema/scheduled_posts";
 import { ApiResponse, StatusType } from "@/entities/types/responses";
-import { z } from "zod";
 import { ErrorType } from "@/entities/types/errors";
 import { accounts } from "@/db/schema/accounts";
 import { eq } from "drizzle-orm";
+import { schedulePostOptsSchema } from "@/entities/types/api";
 
 export async function POST(request: Request) {
     const body = await request.json();
@@ -81,11 +81,3 @@ export async function POST(request: Request) {
         },
     });
 }
-
-const schedulePostOptsSchema = z.object({
-    identifier: z.string(),
-    postOn: z.coerce.date(),
-    postContent: z.string(),
-});
-
-export type SchedulePostOpts = z.infer<typeof schedulePostOptsSchema>;

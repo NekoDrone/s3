@@ -1,10 +1,10 @@
-import { z } from "zod";
 import { agent } from "@/functions/atproto";
 import {
     ApiResponse,
     BskyPostResponse,
     StatusType,
 } from "@/entities/types/responses";
+import { makePostOptsSchema } from "@/entities/types/api";
 
 export async function POST(req: Request) {
     const body = await req.json();
@@ -49,11 +49,3 @@ export async function POST(req: Request) {
         });
     }
 }
-
-export const makePostOptsSchema = z.object({
-    identifier: z.string(),
-    appPassword: z.string(),
-    textContent: z.string().max(300),
-});
-
-export type MakePostOpts = z.infer<typeof makePostOptsSchema>;

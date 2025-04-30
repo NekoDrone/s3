@@ -1,4 +1,3 @@
-import { z } from "zod";
 import db from "@/db";
 import { eq } from "drizzle-orm";
 import { accounts } from "@/db/schema/accounts";
@@ -10,6 +9,7 @@ import {
 import { verifyHash } from "@/functions/hash";
 import { ErrorType } from "@/entities/types/errors";
 import { decryptString } from "@/functions/enc";
+import { LoginErrorType, loginOptsSchema } from "@/entities/types/api";
 
 // Only call this endpoint when user tries to log in with password.
 // If user has a cached App Password, or can remember on the login,
@@ -171,18 +171,4 @@ export async function POST(req: Request) {
             "Content-Type": "application/json",
         },
     });
-}
-
-export const loginOptsSchema = z.object({
-    identifier: z.string(),
-    password: z.string(),
-});
-
-export type LoginOpts = z.infer<typeof loginOptsSchema>;
-
-export enum LoginErrorType {
-    USER_DOES_NOT_EXIST = "User does not exist.",
-    USER_NO_STORED_PASS = "User does not have a stored password.",
-    INCORRECT_PASSWORD = "Provided password is incorrect.",
-    SHOULD_NOT_HAPPEN = "This should not have happened.",
 }
