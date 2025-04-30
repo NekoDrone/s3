@@ -56,7 +56,6 @@ export const Register = () => {
         const res: ApiResponse = await (await fetch(registerReq)).json();
         if (res.data) {
             const data = res.data as RegisterResponse;
-            console.log("setting user data");
             setUserData({
                 identifier,
                 appPassword,

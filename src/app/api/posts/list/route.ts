@@ -42,8 +42,6 @@ export async function GET(req: Request) {
             .limit(1)
     )[0];
 
-    console.log(account);
-
     const posts = await db.query.scheduledPosts.findMany({
         where: eq(scheduledPosts.account, account.id),
     });
