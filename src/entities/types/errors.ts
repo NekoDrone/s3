@@ -7,4 +7,5 @@ export interface ApiError {
 export enum ErrorType {
     TYPE_ERROR = "Type error.",
     ENV_UNSET = "An environment variable was not properly set.",
+    PARAMS_ERROR = "Query params incomplete.",
 }

@@ -19,7 +19,7 @@ export async function GET(req: Request) {
                 message:
                     "Invalid data. Please ensure that you provide the correct type.",
                 details: "identifier must be provided in the query params",
-                type: ErrorType.TYPE_ERROR,
+                type: ErrorType.PARAMS_ERROR,
             },
         };
         return new Response(JSON.stringify(response), {
