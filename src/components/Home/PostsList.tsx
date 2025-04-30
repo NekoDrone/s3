@@ -58,7 +58,7 @@ export const PostsList = () => {
                                         })}
                                     </p>
                                     <div className="flex flex-col gap-1">
-                                        <p className="max-w-96">
+                                        <p className="w-96">
                                             {post.postContent}
                                         </p>
                                     </div>
