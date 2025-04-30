@@ -8,6 +8,14 @@ import { Calendar } from "@/components/DateTime/Calendar";
 import { TimePicker } from "@/components/DateTime/TimePicker";
 import { PostContent } from "@/components/Home/PostContent";
 import { LucideCheck } from "@/components/Icons/LucideCheck";
+import {
+    timeStringToDateSpecified,
+    timeStringToDateToday,
+} from "@/functions/dates";
+import { SchedulePostOpts } from "@/app/api/posts/schedule/route";
+import { useLocalStorage } from "@/hooks/useLocalStorage";
+import { UserData } from "@/entities/types/client";
+import { redirect, RedirectType } from "next/navigation";
 
 export const SchedulePost = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -48,28 +56,54 @@ interface ModalProps {
 }
 
 const SchedulePostModal: FC<ModalProps> = ({ setIsModalOpen }) => {
-    const currDate = useMemo(() => new Date(), []);
+    const userData = useLocalStorage<UserData>("userData")[0];
+
+    if (!userData || !userData.appPassword || !userData.identifier)
+        redirect("/", RedirectType.replace);
+
+    const startDate = useMemo(() => new Date(), []);
+    const currTime = useMemo(() => {
+        const currHour = startDate.getHours().toString().padStart(2, "0");
+        const currMins = startDate.getMinutes().toString().padStart(2, "0");
+        return `${currHour}:${currMins}`;
+    }, [startDate]);
     const [textContent, setTextContent] = useState("");
-    const [selectedDate, setSelectedDate] = useState<Date>(currDate);
-    const [selectedTime, setSelectedTime] = useState("00:00");
+    const [selectedDate, setSelectedDate] = useState<Date>(startDate);
+    const [selectedTime, setSelectedTime] = useState(currTime);
     const [isPostReady, setIsPostReady] = useState(false);
 
     useEffect(() => {
-        console.log("rerendering due to change");
-        if (textContent != "" && selectedTime != "00:00") {
+        const currTime = timeStringToDateToday(selectedTime);
+        if (textContent != "" && currTime > startDate) {
             setIsPostReady(true);
         } else {
             setIsPostReady(false);
         }
-    }, [textContent, selectedTime, currDate]);
+    }, [textContent, selectedTime, startDate]);
 
     const handleBackdropClose = () => {
         setIsModalOpen(false);
     };
 
-    useHotkeys("esc", () => {
+    useHotkeys("esc", handleBackdropClose);
+
+    const scheduleNewPost = async () => {
+        const postDate = timeStringToDateSpecified(selectedTime, selectedDate);
+        const body: SchedulePostOpts = {
+            postOn: postDate,
+            postContent: textContent,
+            identifier: userData.identifier,
+        };
+        const req = new Request("/api/posts/schedule", {
+            method: "POST",
+            body: JSON.stringify(body),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
         handleBackdropClose();
-    });
+        await fetch(req);
+    };
 
     return (
         <div className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-2">
@@ -97,26 +131,25 @@ const SchedulePostModal: FC<ModalProps> = ({ setIsModalOpen }) => {
                     <TimePicker setSelected={setSelectedTime} />
                 </div>
             </motion.div>
-            <AnimatePresence initial={false}>
-                {isPostReady && (
-                    <motion.div
-                        className="from-ctp-tellow via-ctp-maroon to-ctp-pink z-0 flex flex-col gap-1 rounded-4xl bg-gradient-to-br p-4 pt-3 pb-3"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{
-                            type: "tween",
-                            duration: 0.3,
-                            ease: "easeInOut",
-                        }}
-                    >
-                        <button className="text-ctp-base flex items-center justify-center gap-2">
-                            <p>Schedule</p>
-                            <LucideCheck />
-                        </button>
-                    </motion.div>
-                )}
-            </AnimatePresence>
+            {isPostReady && (
+                <motion.button
+                    className="text-ctp-base from-ctp-tellow via-ctp-maroon to-ctp-pink z-0 flex items-center justify-center gap-2 rounded-4xl bg-gradient-to-br p-4 pt-3 pb-3"
+                    onClick={scheduleNewPost}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{
+                        type: "spring",
+                        duration: 0.3,
+                        bounce: 0.2,
+                    }}
+                    whileHover={{ scale: 1.2 }}
+                    whileTap={{ scale: 0.8 }}
+                >
+                    <p>Schedule</p>
+                    <LucideCheck />
+                </motion.button>
+            )}
         </div>
     );
 };
