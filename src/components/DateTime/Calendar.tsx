@@ -20,9 +20,9 @@ export const Calendar: FC<CalendarProps> = ({ selected, setSelected }) => {
     };
 
     return (
-        <div className="bg-ctp-base outline-ctp-mauve flex flex-col justify-between gap-2 rounded-2xl p-4 outline-2">
+        <div className="relative flex flex-col justify-between gap-2 rounded-2xl">
             <div className="flex items-center gap-2">
-                <p>Post on:</p>
+                <p>Post on</p>
                 <button
                     className="bg-ctp-crust flex rounded p-1 pr-1.5 pl-1.5"
                     onClick={handleShowModal}
@@ -49,6 +49,13 @@ export const Calendar: FC<CalendarProps> = ({ selected, setSelected }) => {
             </div>
             <AnimatePresence initial={false}>
                 {showCalendar && (
+                    <div
+                        className="fixed inset-0 z-0"
+                        key="modal overlay"
+                        onClick={handleShowModal}
+                    ></div>
+                )}
+                {showCalendar && (
                     <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
@@ -57,7 +64,7 @@ export const Calendar: FC<CalendarProps> = ({ selected, setSelected }) => {
                             duration: 0.2,
                             ease: "easeIn",
                         }}
-                        className="pb-2"
+                        className="bg-ctp-surface-0 absolute top-8 z-10 w-74 rounded-2xl p-4 pb-6"
                     >
                         <DayPicker
                             mode="single"
@@ -65,6 +72,27 @@ export const Calendar: FC<CalendarProps> = ({ selected, setSelected }) => {
                             onSelect={setSelected}
                             required
                             showOutsideDays={true}
+                            classNames={{
+                                button_previous:
+                                    "h-7 w-7 bg-transparent p-0 opacity-70 hover:opacity-100 absolute left-1 top-0 transition text-ctp-blue",
+                                button_next:
+                                    "h-7 w-7 bg-transparent p-0 opacity-70 hover:opacity-100 absolute right-1 top-0 transition text-ctp-blue",
+                                nav: "flex items-center w-auto h-fit relative",
+                                month: "flex flex-col items-center gap-4",
+                                month_grid: "w-full grid gap-2",
+                                week: "grid grid-cols-7 gap-4",
+                                weeks: "flex flex-col gap-4",
+                                weekdays:
+                                    "grid grid-cols-7 gap-4 text-ctp-mauve",
+                                day: "text-center rounded-full hover:bg-ctp-overlay-0 aria-selected:bg-ctp-green transition",
+                                selected: "text-ctp-crust transition",
+                                outside:
+                                    "text-muted-foreground opacity-40 hover:bg-transparent",
+                                day_button: "w-full h-full",
+                                today: "bg-ctp-pink text-ctp-crust",
+                                disabled:
+                                    "text-muted-foreground opacity-40 hover:bg-transparent",
+                            }}
                             components={{
                                 PreviousMonthButton: ({
                                     className,
@@ -86,25 +114,7 @@ export const Calendar: FC<CalendarProps> = ({ selected, setSelected }) => {
                                     </button>
                                 ),
                             }}
-                            classNames={{
-                                button_previous:
-                                    "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100 absolute left-1 top-0 transition text-ctp-blue",
-                                button_next:
-                                    "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100 absolute right-1 top-0 transition text-ctp-blue",
-                                nav: "flex items-center w-auto h-fit relative",
-                                month: "flex flex-col items-center gap-4",
-                                month_grid: "w-full grid gap-2",
-                                week: "grid grid-cols-7 gap-4",
-                                weeks: "flex flex-col gap-4",
-                                weekdays:
-                                    "grid grid-cols-7 gap-4 text-ctp-mauve",
-                                day: "text-center rounded-full hover:bg-ctp-overlay-0 aria-selected:bg-ctp-green transition",
-                                selected: "text-ctp-crust transition",
-                                outside:
-                                    "text-muted-foreground opacity-40 hover:bg-transparent",
-                                day_button: "w-full h-full",
-                                today: "bg-ctp-pink text-ctp-crust",
-                            }}
+                            disabled={{ before: new Date() }}
                         />
                     </motion.div>
                 )}
