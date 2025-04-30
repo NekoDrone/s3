@@ -4,6 +4,7 @@ import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { redirect, RedirectType } from "next/navigation";
 import { UserData } from "@/entities/types/client";
 import { SchedulePost } from "@/components/Home/SchedulePost";
+import { Footer } from "@/components/Misc/Footer";
 
 const Home = () => {
     const userData = useLocalStorage<UserData>("userData")[0];
@@ -16,6 +17,7 @@ const Home = () => {
             <p>S3</p>
             <p>Your scheduled skeets</p>
             <SchedulePost />
+            <Footer />
         </div>
     );
 };
