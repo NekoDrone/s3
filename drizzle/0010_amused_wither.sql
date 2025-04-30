@@ -1,0 +1,1 @@
+ALTER TABLE `accounts` ADD `did` text NOT NULL;
