@@ -3,11 +3,7 @@ import {
     postsSelectSchemaArray,
     scheduledPosts,
 } from "@/db/schema/scheduled_posts";
-import {
-    ApiResponse,
-    PostsResponse,
-    StatusType,
-} from "@/entities/types/responses";
+import { ApiResponse, StatusType } from "@/entities/types/responses";
 import { ErrorType } from "@/entities/types/errors";
 import { accounts } from "@/db/schema/accounts";
 import { eq } from "drizzle-orm";
