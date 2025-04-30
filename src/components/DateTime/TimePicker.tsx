@@ -19,13 +19,13 @@ export const TimePicker: FC<PickerProps> = ({ setSelected }) => {
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const val = e.target.value;
         const newTime = val.split(":");
-        setSelected(val);
 
-        const newHour = newTime[0];
+        const newHour = newTime[0] ?? "";
         setCurrHour(newHour.padStart(2, "0"));
 
-        const newMinute = newTime[1];
+        const newMinute = newTime[1] ?? "";
         setCurrMinute(newMinute.padStart(2, "0"));
+        setSelected(`${newHour ?? "00"}:${newMinute ?? "00"}`);
     };
 
     return (

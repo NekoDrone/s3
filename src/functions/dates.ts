@@ -4,8 +4,6 @@
  * @returns A `Date` object where with the date set to today, and the time set to the provided timeStr
  */
 export const timeStringToDateToday = (timeStr: string) => {
-    if (timeStr.length < 5)
-        throw new Error("timeStr must be in the format HH:MM");
     const [hours, minutes] = timeStr.split(":").map(Number);
     const date = new Date();
 

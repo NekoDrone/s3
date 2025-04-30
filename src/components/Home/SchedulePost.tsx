@@ -78,6 +78,7 @@ const SchedulePostModal: FC<ModalProps> = ({ setIsModalOpen }) => {
     const queryClient = useQueryClient();
 
     useEffect(() => {
+        console.log(selectedTime);
         const currTime = timeStringToDateToday(selectedTime);
         if (textContent != "" && currTime > startDate) {
             setIsPostReady(true);
