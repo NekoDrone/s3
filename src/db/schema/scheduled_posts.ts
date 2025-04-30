@@ -32,4 +32,4 @@ export const postsInsertSchema = createInsertSchema(scheduledPosts, {
     postOn: z.coerce.date(),
 });
 
-export type ScheduledPost = z.infer<typeof postsInsertSchema>;
+export type ScheduledPostInsert = z.infer<typeof postsInsertSchema>;
