@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { LucideGithub } from "@/components/Icons/LucideGithub";
 
 export const Footer = () => {
