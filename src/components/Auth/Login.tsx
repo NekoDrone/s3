@@ -196,7 +196,7 @@ const AppPasswordInput: FC<InputProps> = ({
                                     If you&#39;ve not, and you&#39;ve forgotten
                                     your App Password, please contact me at{" "}
                                     <a
-                                        href="https://serenity.tgirl.gay/"
+                                        href="https://bsky.app/profile/sylfr.dev"
                                         className="hover:text-ctp-blue underline"
                                     >
                                         my Bluesky
@@ -291,7 +291,7 @@ const PasswordInput: FC<InputProps> = ({
                                     If you&#39;ve forgotten your App Password,
                                     please contact me at{" "}
                                     <a
-                                        href="https://serenity.tgirl.gay/"
+                                        href="https://bsky.app/profile/sylfr.dev"
                                         className="hover:text-ctp-blue underline"
                                     >
                                         my Bluesky

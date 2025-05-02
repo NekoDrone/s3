@@ -7,7 +7,7 @@ export const Footer = () => {
                 <p className="text-sm font-light">Built with 💜 by</p>
                 <a
                     className="hover:text-ctp-lavender text-sm font-light underline"
-                    href="https://serenity.tgirl.gay"
+                    href="https://bsky.app/profile/sylfr.dev"
                 >
                     Serenity
                 </a>
